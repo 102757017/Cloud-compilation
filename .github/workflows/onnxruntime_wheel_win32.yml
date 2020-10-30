@@ -36,10 +36,11 @@ jobs:
           pip install --upgrade wheel setuptools  
         
       - name: 下载onnxruntime源码,@后必须使用tag，不能使用分支名
-        uses: microsoft/onnxruntime@v1.5.3
+        run: git clone https://github.com/microsoft/onnxruntime.git
       
       - name: 编译
         run: |
+          cd onnxruntime
           .\build.bat --config Release --x86 --build_wheel --parallel
             
 
