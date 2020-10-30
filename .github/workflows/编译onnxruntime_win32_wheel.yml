@@ -21,7 +21,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
         
-      - name: Setup Python
+      - name: 安装python
         uses: actions/setup-python@v2.1.4
         with:
           # Version range or exact version of a Python version to use, using SemVer's version range syntax.
