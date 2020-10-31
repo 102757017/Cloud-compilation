@@ -47,6 +47,16 @@ jobs:
       - name: Upload  Artifacts
         uses: actions/upload-artifact@v2
         with:
-          path: '.\build\Windows\Release\Release\dist'
+          path: '.\onnxruntime\build\Windows\Release\Release\dist'
           name: "dist" 
-          
+
+      - name: Upload a Release Asset
+        uses: actions/upload-release-asset@v1.0.2
+        with:
+          # The URL for uploading assets to the release
+          #upload_url: 
+          # The path to the asset you want to upload
+          asset_path: '.\onnxruntime\build\Windows\Release\Release\dist'
+          # The name of the asset you want to upload
+          asset_name: "onnxruntime_wheel_win32"
+
