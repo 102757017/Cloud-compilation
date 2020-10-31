@@ -69,8 +69,5 @@ jobs:
           # The URL for uploading assets to the release
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           # The path to the asset you want to upload
-          asset_path: '.\onnxruntime\build\Windows\Release\Release\dist'
-          # The name of the asset you want to upload
-          asset_name: "onnxruntime_wheel_win32"
-          asset_content_type: application/zip
+          asset_path: '.\onnxruntime\build\Windows\Release\Release\dist\*.whl'
 
