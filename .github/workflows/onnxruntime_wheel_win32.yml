@@ -35,7 +35,7 @@ jobs:
           pip install -r requirements.txt
           pip install --upgrade wheel setuptools  
         
-      - name: 下载onnxruntime源码,@后必须使用tag，不能使用分支名
+      - name: 下载onnxruntime源码
         run: git clone https://github.com/microsoft/onnxruntime.git
       
       - name: 编译
@@ -43,20 +43,34 @@ jobs:
           cd onnxruntime
           .\build.bat --config Release --x86 --build_wheel --parallel
             
-
-      - name: Upload  Artifacts
+      - name: Upload Artifacts
         uses: actions/upload-artifact@v2
         with:
+          # path的路径是以102757017/Cloud-compilation项目的根目录为工作目录，即使上一步使用cd 切换了路径也对根目录没有影响 
           path: '.\onnxruntime\build\Windows\Release\Release\dist'
           name: "dist" 
 
-      - name: Upload a Release Asset
+      - name: 创建一个空的Release
+        id: create_release
+        uses: actions/create-release@v1.1.4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: 上传文件到上一步创建的release中
         uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           # The URL for uploading assets to the release
-          #upload_url: 
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
           # The path to the asset you want to upload
           asset_path: '.\onnxruntime\build\Windows\Release\Release\dist'
           # The name of the asset you want to upload
           asset_name: "onnxruntime_wheel_win32"
+          asset_content_type: application/zip
 
