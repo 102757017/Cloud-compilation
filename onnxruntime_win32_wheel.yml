@@ -26,7 +26,8 @@ steps:
 
 #执行编译脚本
 #将工作目录设置为.\build\Windows\Release\Release，执行python setup.py bdist_wheel会在.\build\Windows\Release\Release\dist目录下生成wheel
-- powershell: cd onnxruntime | .\build.bat --config Release --x86 --build_wheel --parallel
+- powershell: .\build.bat --config Release --x86 --build_wheel --parallel
+  workingDirectory: .\onnxruntime
 
 
 #保存编译结果
