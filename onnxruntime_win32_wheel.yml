@@ -1,19 +1,39 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
+# https://docs.microsoft.com/azure/devops/pipelines/languages/python
+# 在https://dev.azure.com/sdf63fg/云端编译/_build中运行代码
 trigger:
 - master
 
+#使用的镜像版本
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: "vs2017-win2016"
 
+#设置python环境
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.6'
+    addToPath: true
+    architecture: 'x86'
 
+#安装python第三方库
 - script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    python -m pip install --upgrade pip
+    pip install -r requirements.txt
+    pip install --upgrade wheel setuptools
+  displayName: 'Install dependencies'
+
+- powershell: git clone https://github.com/microsoft/onnxruntime.git
+
+#执行编译脚本
+#将工作目录设置为.\build\Windows\Release\Release，执行python setup.py bdist_wheel会在.\build\Windows\Release\Release\dist目录下生成wheel
+- powershell: cd onnxruntime
+- powershell: .\build.bat --config Release --x86 --build_wheel --parallel
+
+
+#保存编译结果
+## path的路径是以102757017/Cloud-compilation项目的根目录为工作目录，即使上一步使用cd 切换了路径也对根目录没有影响
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '.\onnxruntime\build\Windows\Release\Release\dist'
+    ArtifactName: 'dist'
+    publishLocation: 'Container'
