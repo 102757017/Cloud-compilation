@@ -1,11 +1,11 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: 编译onnxruntime
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the main branch
 on:
-  push:
+  check_run:
     branches: [ main ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -50,24 +50,24 @@ jobs:
           path: '.\onnxruntime\build\Windows\Release\Release\dist'
           name: "dist" 
 
-      - name: 创建一个空的Release
-        id: create_release
-        uses: actions/create-release@v1.1.4
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: "wheel_win32"
-          release_name: onnxruntime
-          draft: false
-          prerelease: false
+#      - name: 创建一个空的Release
+#        id: create_release
+#        uses: actions/create-release@v1.1.4
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          tag_name: "wheel_win32"
+#          release_name: onnxruntime
+#          draft: false
+#          prerelease: false
 
-      - name: 上传文件到上一步创建的release中
-        uses: actions/upload-release-asset@v1.0.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          # The URL for uploading assets to the release
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          # The path to the asset you want to upload
-          asset_path: '.\onnxruntime\build\Windows\Release\Release\dist\*.whl'
+#      - name: 上传文件到上一步创建的release中
+#        uses: actions/upload-release-asset@v1.0.2
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          # The URL for uploading assets to the release
+#          upload_url: ${{ steps.create_release.outputs.upload_url }}
+#          # The path to the asset you want to upload
+#          asset_path: '.\onnxruntime\build\Windows\Release\Release\dist\*.whl'
 
