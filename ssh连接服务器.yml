@@ -11,10 +11,10 @@ pool:
 
 steps:
 - script: |
-    sudo apt-get install tmate,tree
+    sudo apt-get install tmate
   displayName: 'Install dependencies'
 
 
 
-- bash: tree
+- pwsh: : ls
   displayName: 'connect'
