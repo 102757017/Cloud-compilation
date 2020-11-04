@@ -14,6 +14,7 @@ steps:
     sudo apt-get install tmate
   displayName: 'Install dependencies'
 
-- script: |
-    tmate
+
+
+- bash: tmate
   displayName: 'connect'
