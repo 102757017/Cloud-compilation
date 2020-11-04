@@ -12,6 +12,9 @@ pool:
 steps:
 - script: |
     sudo apt-get install tmate
-    tmate
   displayName: 'Install dependencies'
 
+- pwsh: git clone https://github.com/csexton/debugger-action.git
+
+- pwsh: .\script.sh
+  workingDirectory: .\debugger-action
