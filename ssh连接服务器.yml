@@ -16,5 +16,5 @@ steps:
 
 - pwsh: git clone https://github.com/csexton/debugger-action.git
 
-- pwsh: .\script.sh
-  workingDirectory: .\debugger-action
+- pwsh: ./script.sh
+  workingDirectory: ./debugger-action
