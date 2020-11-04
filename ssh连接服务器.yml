@@ -12,8 +12,6 @@ pool:
 steps:
 - script: |
     sudo apt-get install tmate
+    tmate
   displayName: 'Install dependencies'
 
-
-
-- pwsh: tmate
