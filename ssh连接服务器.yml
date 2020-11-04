@@ -16,5 +16,4 @@ steps:
 
 
 
-- pwsh: : ls
-  displayName: 'connect'
+- pwsh: tmate
