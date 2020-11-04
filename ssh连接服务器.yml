@@ -11,7 +11,7 @@ pool:
 
 steps:
 - script: |
-    apt install tmate,ssh-keygen
+    sudo apt install tmate,ssh-keygen
   displayName: 'Install dependencies'
 
 - script: |
