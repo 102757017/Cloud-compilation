@@ -37,7 +37,8 @@ requirements =
     libiconv,
     libzbar,
     hostpython3,
-    xcamera
+    xcamera,
+    zbarcam
 
 
 # (str) Custom source folders for requirements
