@@ -8,6 +8,14 @@ It can also be ran via p4a/buildozer.
 """
 from kivy.app import App
 from kivy.lang import Builder
+from kivy.utils import platform
+if platform == "android":
+    from android.permissions import request_permissions, Permission
+    request_permissions([Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE, Permission.INTERNET,Permission.CAMERA])    
+    from android.storage import primary_external_storage_path
+    appwd=primary_external_storage_path()+'/kivydemo'
+
+
 
 DEMO_APP_KV_LANG = """
 #:import ZBarCam kivy_garden.zbarcam.ZBarCam
