@@ -37,6 +37,7 @@ requirements =
     android,
     libiconv,
     libzbar,
+    opencv-python,
     xcamera
 
 
