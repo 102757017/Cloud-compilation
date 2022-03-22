@@ -37,8 +37,7 @@ requirements =
     android,
     libiconv,
     libzbar,
-    xcamera,
-    zbarcam
+    xcamera
 
 
 # (str) Custom source folders for requirements
@@ -61,7 +60,7 @@ fullscreen = 0
 #android.presplash_color = #FFFFFF
 
 # (list) Permissions
-android.permissions = CAMERA
+android.permissions = CAMERA,INTERNET,READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE
 
 # (int) Target Android API, should be as high as possible.
 android.api = 28
