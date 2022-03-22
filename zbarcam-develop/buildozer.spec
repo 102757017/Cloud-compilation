@@ -29,8 +29,8 @@ android.numeric_version = 1
 requirements = 
     hostpython3==3.8.1,
     python3==3.8.1,
-    kivy,
-    https://github.com/102757017/KivyMD/archive/refs/heads/master.zip,
+    git+https://github.com/102757017/kivy.git@master,
+    git+https://github.com/102757017/KivyMD.git@master,
     pygments,
     sdl2_ttf==2.0.15,
     pillow,
