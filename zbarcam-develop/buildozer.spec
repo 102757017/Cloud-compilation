@@ -29,7 +29,7 @@ android.numeric_version = 1
 requirements = 
     hostpython3==3.8.1,
     python3==3.8.1,
-    git+https://github.com/102757017/kivy.git@master,
+    kivy,
     git+https://github.com/102757017/KivyMD.git@master,
     pygments,
     sdl2_ttf==2.0.15,
@@ -37,13 +37,13 @@ requirements =
     android,
     libiconv,
     libzbar,
-    opencv-python,
+    #opencv-python,
     xcamera
 
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
-#requirements.source.kivymd = ../../kivymd
+requirements.source.zbarcam = %(source.dir)s/kivy_garden/zbarcam
 
 # (str) Presplash of the application
 #presplash.filename = %(source.dir)s/assets/presplash.png
