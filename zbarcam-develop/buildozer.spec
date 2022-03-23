@@ -20,7 +20,7 @@ source.include_patterns = assets/*,images/*.png
 
 # (str) Application versioning (method 2)
 version.regex = __version__ = ['"](.*)['"]
-version.filename = %(source.dir)s/zbarcam/version.py
+version.filename = %(source.dir)s/kivy_garden/zbarcam/version.py
 
 android.numeric_version = 1
 
