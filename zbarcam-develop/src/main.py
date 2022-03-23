@@ -20,7 +20,7 @@ if platform == "android":
 
 
 DEMO_APP_KV_LANG = """
-#:import ZBarCam kivy_garden.zbarcam.zbarcam
+#:import ZBarCam zbarcam.zbarcam
 BoxLayout:
     orientation: 'vertical'
     ZBarCam:

@@ -43,7 +43,7 @@ requirements =
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
-requirements.source.zbarcam = %(source.dir)s/kivy_garden/zbarcam
+#requirements.source.zbarcam = %(source.dir)s/kivy_garden/zbarcam
 
 # (str) Presplash of the application
 #presplash.filename = %(source.dir)s/assets/presplash.png
