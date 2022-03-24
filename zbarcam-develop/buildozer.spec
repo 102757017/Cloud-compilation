@@ -27,16 +27,12 @@ android.numeric_version = 1
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
 requirements = 
-    hostpython3==3.8.1,
     python3==3.8.1,
     kivy,
     git+https://github.com/102757017/KivyMD.git@master,
-    pygments,
     sdl2_ttf==2.0.15,
     pillow,
     android,
-    libiconv,
-    libzbar,
     #opencv-python,
     xcamera,
     pyzbar
