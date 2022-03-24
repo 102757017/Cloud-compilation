@@ -19,7 +19,7 @@ if getattr(sys, 'frozen', False):
     bundle_dir = sys._MEIPASS
 else:
     bundle_dir = os.path.dirname(os.path.abspath(__file__))
-print(bundle_dir)
+print("工作路径",bundle_dir)
 sys.path.append(bundle_dir)
 from kivy_garden.zbarcam.zbarcam import ZBarCam
 
