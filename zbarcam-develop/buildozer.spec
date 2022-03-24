@@ -38,7 +38,8 @@ requirements =
     libiconv,
     libzbar,
     #opencv-python,
-    xcamera
+    xcamera,
+    pyzbar
 
 
 # (str) Custom source folders for requirements
