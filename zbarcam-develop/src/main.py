@@ -50,6 +50,7 @@ BoxLayout:
 
     Label:
         size_hint: None, None
+        font_name:"DroidSansFallback.ttf"
         text: "中文"
 """
 
