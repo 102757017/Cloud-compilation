@@ -42,7 +42,7 @@ BoxLayout:
     ZBarCam:
         id: zbarcam
         # optional, by default checks all types
-        code_types: 'QRCODE', 'EAN13'
+        code_types: 'QRCODE', 'CODE128'
     Label:
         size_hint: None, None
         size: self.texture_size[0], 50
