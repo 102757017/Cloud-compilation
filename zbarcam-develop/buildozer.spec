@@ -28,8 +28,7 @@ android.numeric_version = 1
 # comma separated e.g. requirements = sqlite3,kivy
 requirements = 
     python3==3.8.1,
-    #kivy[base] @ https://github.com/102757017/kivy/archive/master.zip,
-    kivy[base],
+    kivy[base] @ https://github.com/102757017/kivy/archive/stable.zip,
     git+https://github.com/102757017/KivyMD.git@master,
     sdl2_ttf==2.0.15,
     pillow,
