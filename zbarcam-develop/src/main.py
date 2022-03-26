@@ -37,12 +37,13 @@ if platform == "android":
 
 DEMO_APP_KV_LANG = """
 #:import ZBarCam kivy_garden.zbarcam.zbarcam
+#:import ZBarSymbol pyzbar.pyzbar.ZBarSymbol
 BoxLayout:
     orientation: 'vertical'
     ZBarCam:
         id: zbarcam
         # optional, by default checks all types
-        code_types: 'QRCODE', 'CODE128'
+        code_types: ZBarSymbol.CODE128,ZBarSymbol.QRCODE
     Label:
         size_hint: None, None
         size: self.texture_size[0], 50
