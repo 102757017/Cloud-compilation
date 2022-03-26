@@ -43,7 +43,12 @@ BoxLayout:
     ZBarCam:
         id: zbarcam
         # optional, by default checks all types
-        code_types: ZBarSymbol.CODE128,ZBarSymbol.QRCODE
+        #code_types: "CODE128","QRCODE"
+        
+    Label:
+        size_hint: None, None
+        size: self.texture_size[0], 50
+        text: ', '.join([str(symbol.type) for symbol in zbarcam.symbols])
     Label:
         size_hint: None, None
         size: self.texture_size[0], 50
