@@ -45,7 +45,7 @@ BoxLayout:
         # optional, by default checks all types
         #code_types: "CODE128","QRCODE"
         #这里的分辨率必须填写手机摄像头支持的分辨率，随便填会导致在电脑上可以运行，但是手机app闪退
-        resolution: 2304,1728
+        resolution: 1280,960
         
     Label:
         size_hint: None, None
