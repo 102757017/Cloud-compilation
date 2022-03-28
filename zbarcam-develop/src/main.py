@@ -44,6 +44,7 @@ BoxLayout:
         id: zbarcam
         # optional, by default checks all types
         #code_types: "CODE128","QRCODE"
+        resolution: 1600,1024
         
     Label:
         size_hint: None, None
