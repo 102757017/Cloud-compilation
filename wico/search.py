@@ -3,10 +3,17 @@
 import sqlite3
 import time
 import os
+import sys
 import pprint
 
-print(os.path.dirname(__file__))
-os.chdir(os.path.dirname(__file__))
+
+if getattr(sys, 'frozen', False):
+    bundle_dir = sys._MEIPASS
+else:
+    bundle_dir = os.path.dirname(os.path.abspath(__file__))
+print(bundle_dir)
+sys.path.append(bundle_dir)
+
 
 # 连接到SQLite数据库
 # 数据库文件是test.db
