@@ -11,8 +11,7 @@ if getattr(sys, 'frozen', False):
     bundle_dir = sys._MEIPASS
 else:
     bundle_dir = os.path.dirname(os.path.abspath(__file__))
-print(bundle_dir)
-sys.path.append(bundle_dir)
+os.chdir(bundle_dir)
 
 
 # 连接到SQLite数据库
