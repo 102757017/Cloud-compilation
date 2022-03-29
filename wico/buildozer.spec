@@ -10,7 +10,7 @@ package.name = Customer_info_feedback
 package.domain = org.kivymd
 
 # (str) Source code where the main.py live
-#source.dir = src
+source.dir = .
 
 # (list) Source files to include (let empty to include all the files)
 source.include_exts = py,png,jpg,jpeg,ttf,kv,json,txt
@@ -19,9 +19,9 @@ source.include_exts = py,png,jpg,jpeg,ttf,kv,json,txt
 source.include_patterns = assets/*,images/*.png
 
 # (str) Application versioning (method 2)
-version.regex = __version__ = ['"](.*)['"]
-version.filename = %(source.dir)s/kivy_garden/zbarcam/version.py
-
+#version.regex = __version__ = ['"](.*)['"]
+#version.filename = %(source.dir)s/kivy_garden/zbarcam/version.py
+version = 0.1
 android.numeric_version = 1
 
 # (list) Application requirements
