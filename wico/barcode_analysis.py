@@ -103,8 +103,8 @@ def analysis_code(t):
         
     return part_number,line,date
         
-
+'''
 if __name__ == '__main__':
     t="IMAFT WITHOUT HES MOTORLV NO.:LVSMT111912-A03IMASEN NO.:Z23-4729910-2MOTOR NO.:250222 B302 02311"
     analysis_code(t)
-    
+'''
