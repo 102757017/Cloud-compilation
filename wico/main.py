@@ -51,14 +51,15 @@ KV = '''
 
 <MYLabel@MDLabel>
     size_hint_y: None
+    pos_hint: {"center_x": .4, "center_y": .5}
     height: self.texture_size[1]
-    font_style: "H6"
+    font_style: "Body2"
     halign: "left"
 
 <MYDropDownItem@MDDropDownItem>
     text: ""
-    font_style: "H6"
-    pos_hint: {"center_x": .5, "center_y": .6}
+    font_style: "Body2"
+    pos_hint: {"center_x": .5, "center_y": .5}
 
   
 ScreenManager:
@@ -96,7 +97,9 @@ ScreenManager:
                         MDRectangleFlatButton:
                             id:Lot1
                             text: '点击扫码'  
-                            user_font_size: "15sp"
+                            #user_font_size: "15sp"
+                            size_hint: None,None
+                            size:300,40
                             on_press: root.manager.current = 'camera'
                             on_text: app.decode(self.text)
                             
@@ -198,6 +201,7 @@ ScreenManager:
                             hint_text: "选单内没有时手动输入"
                             
                         MDIconButton:
+                            pos_hint: {"center_x": .5, "center_y": .5}
                             icon: "language-python"
                             user_font_size: "20sp"
                             on_release: app.show_ng_information1()
@@ -217,6 +221,7 @@ ScreenManager:
                             hint_text: "选单内没有时手动输入"
                             
                         MDIconButton:
+                            pos_hint: {"center_x": .5, "center_y": .5}
                             icon: "language-python"
                             user_font_size: "20sp"
                             on_release: app.show_repair_method1()
@@ -237,7 +242,7 @@ ScreenManager:
 
                 MDLabel:
                     font_style: "Body1"
-                    text: "It is not finished,I am programming"
+                    text: "I programming of C++"
                     halign: "center"
 <CameraScreen>:
     name: 'camera'
@@ -267,7 +272,6 @@ ScreenManager:
         text: 'Back'
         pos_hint: {'center_x':0.5,'center_y':0.1}
         on_press: app.goback()
-                    
 '''
 
 class MainScreen(Screen):
