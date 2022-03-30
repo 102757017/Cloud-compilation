@@ -258,7 +258,6 @@ ScreenManager:
     MDLabel:
         id:barcode
         size: self.texture_size[0], 50
-        #text: 'Profile'
         text: ', '.join([str(symbol.data) for symbol in zbarcam.symbols])
         on_text: app.goback2(self.text)
 
@@ -272,6 +271,7 @@ ScreenManager:
         text: 'Back'
         pos_hint: {'center_x':0.5,'center_y':0.1}
         on_press: app.goback()
+                    
 '''
 
 class MainScreen(Screen):
@@ -401,7 +401,7 @@ class Test(MDApp):
 
     
     def upload(self):
-        if self.root.get_screen('main').ids.RepairMethod1.text !="":
+        if self.root.get_screen('main').ids.RepairMethod1.text !="" and self.root.get_screen('main').ids.RepairMethod1.text !="" and self.root.get_screen('main').ids.SeatModel1.text!="":
             # 格式化成2016-03-20 11:45:39形式
             NgTime=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
             CarModel=self.root.get_screen('main').ids.CarModel1.text
@@ -416,21 +416,24 @@ class Test(MDApp):
             Lot=self.root.get_screen('main').ids.Lot1.text
             ManufactureDate=self.ManufactureDate1
             Production_Line=self.Production_Line1
-            uploade_ngrecord(NgTime,
-                             CarModel,
-                             SeatModel,
-                             WicoPartNumber,
-                             TsPartNumber,
-                             PartName,
-                             PartType,
-                             Supplier,
-                             NgInfo,
-                             RepairMethod,
-                             Lot,
-                             ManufactureDate,
-                             Production_Line,
-                             0)
-            toast("数据上传完成")
+            if search_barcode(Lot)==False:
+                uploade_ngrecord(NgTime,
+                                 CarModel,
+                                 SeatModel,
+                                 WicoPartNumber,
+                                 TsPartNumber,
+                                 PartName,
+                                 PartType,
+                                 Supplier,
+                                 NgInfo,
+                                 RepairMethod,
+                                 Lot,
+                                 ManufactureDate,
+                                 Production_Line,
+                                 0)
+                toast("数据上传完成")
+            else:
+                toast("此批次号的产品此前已经上传过不良信息了，请勿重复上传")
         else:
             toast("请将表单填写完整后再上传")
 
@@ -450,6 +453,7 @@ class Test(MDApp):
         self.root.get_screen('main').ids.TsPartNumber1.text=TsPartNumber
         self.root.get_screen('main').ids.PartName1.text=PartName
         self.root.get_screen('main').ids.CarModel1.text=""
+        self.root.get_screen('main').ids.SeatModel1.text=""
         self.root.get_screen('main').ids.NgInfo1.text=""
         self.root.get_screen('main').ids.RepairMethod1.text=""
         self.Supplier1=Supplier
@@ -461,7 +465,7 @@ class Test(MDApp):
         self.root.current = 'main'
         #self.root.get_screen('main').ids.PartType1.text="电动滑轨"
         #self.root.get_screen('main').ids.WicoPartNumber1.text="23-4739141-2"
-        #self.root.get_screen('main').ids.Lot1.text="IMAFT WITHOUT HES MOTORLV NO.:LVSMT111912-A03IMASEN NO.:Z23-4729910-2MOTOR NO.:250222 B302 02311"
+        #self.root.get_screen('main').ids.Lot1.text="2TLA8E3C33B8W"
 
             
     def analysis_code(self,*args):
