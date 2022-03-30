@@ -96,7 +96,7 @@ def analysis_code(t):
                 
             if len(re_rule)==46:
                 date,line=sanyo_qrcode(result)
-             break
+            break
 
     if found==0:
         print("无法匹配已知的条码模板，输入的条码有误")
