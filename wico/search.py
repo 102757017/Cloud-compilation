@@ -286,6 +286,23 @@ def get_RepairMethod(PartType,NgInfo):
             RepairMethod.append(x[0]) 
     return RepairMethod
 
+def search_barcode(barcode):
+    cursor = conn.cursor()
+    sqlcmd='''
+    SELECT
+    *
+    FROM
+    ngrecord
+    WHERE
+    Lot = "{}"
+    '''.format(barcode)
+    cursor.execute(sqlcmd)
+    values = cursor.fetchall()
+    cursor.close()
+    if len(values)>0:
+        return True
+    else:
+        return False
 
 def uploade_ngrecord(NgTime, CarModel, SeatModel, WicoPartNumber, TsPartNumber, PartName, PartType, Supplier, NgInfo, RepairMethod, Lot, ManufactureDate, Production_Line, Sync):
     cursor = conn.cursor()
@@ -353,3 +370,6 @@ if __name__=="__main__":
     print("\n",RepairMethod)
 
     uploade_ngrecord("2022-03-29 14:30:21", "2LQ", '手动-前排-左席座椅', WicoPartNumber, TsPartNumber, PartName, PartType, Supplier, '上导轨螺丝脱落', '更换滑轨', "lotnumber", "2022-03-29", "58106", 0)
+    
+    a=search_barcode("lotnumber")
+    print(a)
