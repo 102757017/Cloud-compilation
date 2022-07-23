@@ -1,11 +1,11 @@
 # -*- coding: UTF-8 -*-
 import re          #导入正则表达式库
-from search import get_Regular
+from search import get_Regulars
 import pprint
 
 
-#imasen_barcode,1TBA([1-9A-E])1([1-9A-C])([1-9A-X])([0-9A-F]{3})([0-9A-Z])([WT])
-#imasen_label,([0-9]{2})([A-L])([0-9]{2})([A-C]) ([0-9]{3})
+#imasen_barcode,1TBA([1-9A-E])1([1-9A-C])([1-9A-HJ-NP-X])([0-9A-F]{3})([0-9A-Z])([WT])
+#imasen_label,([0-9]{2})([A-L])([0-3][0-9])([A-C]) ([0-9]{3})
 #mitsuba_qrcode,NR([0-9])([A-L])([0-9]{2})([0-9]{4})
 #sanyo_qrcod,23-4729910-2.+?:([0-9]{2})([0-9]{2})([0-9]{2})
 
@@ -38,6 +38,23 @@ def imasen_barcode(result):
     date=year+"-"+month+"-"+day
     print("{}工厂{}生产线  {}生产的第{}个产品".format(country,line,date,seq))
     return date,line
+    
+def imasen_lable(result):
+    #([0-9]{2})([A-L])([0-3][0-9])([A-C]) ([0-9]{3})
+    d_month={"A":"01","B":"02","C":"03","D":"04","E":"05","F":"06","G":"07","H":"08","I":"09","J":"10","K":"11","L":"12"}
+    year,month,day="","",""
+
+    year="20"+result[0][0]
+    month=d_month[result[0][1]]
+    day=result[0][2]
+    seq=result[0][4]
+    date=year+"-"+month+"-"+day
+    print("{}生产的第{}个产品".format(date,seq))
+    return date
+
+
+    
+    
     
 
     
@@ -79,7 +96,7 @@ def default():
 
 def analysis_code(t):
     found=0
-    Regular=get_Regular()
+    Regular=get_Regulars()
     for x in Regular:
         part_number=x[0]
         #正则表达式
@@ -88,7 +105,7 @@ def analysis_code(t):
         if len(result)==1:
             found=1
             #根据正则表达式的长度匹配条码规则，判断是那种类型的条码，进入不同的解析函数
-            if len(re_rule)==64:
+            if len(re_rule)==70:
                 date,line=imasen_barcode(result)
                 
             if len(re_rule)==36:
@@ -97,15 +114,45 @@ def analysis_code(t):
             if len(re_rule)==46:
                 date,line=sanyo_qrcode(result)
             break
-
     if found==0:
         print("无法匹配已知的条码模板，输入的条码有误")
         part_number,line,date="","",""
-        
+
     return part_number,line,date
+
+
+
+def analysis_part_lable(lable,Regular):
+    result = re.findall(Regular, lable)
+    if Regular=="([0-9]{2})([A-L])([0-3][0-9])([A-C]) ([0-9]{3})":
+        date=imasen_lable(result)
+        line=""
+    
+    #根据正则表达式的长度匹配条码规则，判断是那种类型的条码，进入不同的解析函数
+    if len(Regular)==64:
+        date,line=imasen_barcode(result)
         
-'''
+    if len(Regular)==36:
+        date,line=mitsuba_qrcode(result)
+        
+    if len(Regular)==46:
+        date,line=sanyo_qrcode(result)
+    
+    return line,date
+
+
+
+
+
+
+
 if __name__ == '__main__':
-    t="IMAFT WITHOUT HES MOTORLV NO.:LVSMT111912-A03IMASEN NO.:Z23-4729910-2MOTOR NO.:250222 B302 02311"
-    analysis_code(t)
-'''
+    #t="IMAFT WITHOUT HES MOTORLV NO.:LVSMT111912-A03IMASEN NO.:Z23-4729910-2MOTOR NO.:250222 B302 02311"
+    t="13M0817K064GW"
+    part_number,line,date=analysis_code(t)
+    print(part_number,line,date)
+
+    line,date=analysis_part_lable("13M0817K064GW","13M0([1-9A-E])1([1-9A-C])([1-9A-X])([0-9A-F]{3})([0-9A-Z])([WT])")
+    print(line,date)
+
+

@@ -5,7 +5,8 @@ import time
 import os
 import sys
 import pprint
-
+import datetime
+import pymysql
 
 if getattr(sys, 'frozen', False):
     bundle_dir = sys._MEIPASS
@@ -13,12 +14,18 @@ else:
     bundle_dir = os.path.dirname(os.path.abspath(__file__))
 os.chdir(bundle_dir)
 
-
 # 连接到SQLite数据库
 # 数据库文件是test.db
 # 如果文件不存在，会自动在当前目录创建:
 conn = sqlite3.connect('db.db')
 
+'''
+conn_server = pymysql.connect(host='localhost',
+                             user='user',
+                             password='passwd',
+                             database='db',
+                             cursorclass=pymysql.cursors.DictCursor)
+'''
 
 def get_CarModel():
     # 创建一个Cursor:
@@ -87,7 +94,11 @@ def get_PartNumberName(CarModel,SeatModel,PartType):
     SELECT
     partlist.WicoPartNumber,
     partlist.TsPartNumber,
-    partlist.PartName
+    partlist.PartName,
+    partlist.Supplier,
+    partlist.Regular,
+    partlist."Production Line",
+    partlist.PartPicUrl
     FROM
     seatlist
     INNER JOIN partlist ON seatlist.WicoPartNumber = partlist.WicoPartNumber
@@ -102,12 +113,20 @@ def get_PartNumberName(CarModel,SeatModel,PartType):
     WicoPartNumber=[]
     TsPartNumber=[]
     PartName=[]
+    Supplier=[]
+    Regular=[]
+    Production_Line=[]
+    PartPicUrl=[]
     if len(values)>0:
         for x in values:
             WicoPartNumber.append(x[0])
             TsPartNumber.append(x[1])
             PartName.append(x[2])
-    return WicoPartNumber,TsPartNumber,PartName
+            Supplier.append(x[3])
+            Regular.append(x[4])
+            Production_Line.append(x[5])
+            PartPicUrl.append(x[6])
+    return WicoPartNumber,TsPartNumber,PartName,Supplier,Regular,Production_Line,PartPicUrl
 
     
 
@@ -174,7 +193,7 @@ def get_DetailByNum(CarModel,SeatModel,PartType,PartName):
 
 
 #使用扫条码的方式获取产品信息
-def get_Regular():
+def get_Regulars():
     # 创建一个Cursor:
     cursor = conn.cursor()
     sqlcmd='''
@@ -193,6 +212,7 @@ def get_Regular():
     values = cursor.fetchall()
     cursor.close()
     return values
+ 
 
 def get_CarModelBybar(WicoPartNumber):
     cursor = conn.cursor()
@@ -210,6 +230,7 @@ def get_CarModelBybar(WicoPartNumber):
     INNER JOIN partlist ON seatlist.WicoPartNumber = partlist.WicoPartNumber
     WHERE
     partlist.WicoPartNumber = "{}"
+    GROUP BY seatlist.CarModel
     '''.format(WicoPartNumber)
     cursor.execute(sqlcmd)
     values = cursor.fetchall()
@@ -286,7 +307,7 @@ def get_RepairMethod(PartType,NgInfo):
             RepairMethod.append(x[0]) 
     return RepairMethod
 
-def search_barcode(barcode):
+def search_barcode(WicoPartNumber,barcode):
     cursor = conn.cursor()
     sqlcmd='''
     SELECT
@@ -294,8 +315,9 @@ def search_barcode(barcode):
     FROM
     ngrecord
     WHERE
+    WicoPartNumber = "{}" AND
     Lot = "{}"
-    '''.format(barcode)
+    '''.format(WicoPartNumber,barcode)
     cursor.execute(sqlcmd)
     values = cursor.fetchall()
     cursor.close()
@@ -304,19 +326,104 @@ def search_barcode(barcode):
     else:
         return False
 
+
 def uploade_ngrecord(NgTime, CarModel, SeatModel, WicoPartNumber, TsPartNumber, PartName, PartType, Supplier, NgInfo, RepairMethod, Lot, ManufactureDate, Production_Line, Sync):
+    if Lot=="":
+        Lot="NULL"
+    else:
+        Lot="'{}'".format(Lot)
+        
+    if ManufactureDate=="":
+        ManufactureDate="NULL"
+    else:
+        ManufactureDate="'{}'".format(ManufactureDate)
+        
+    if Production_Line=="":
+        Production_Line="NULL"
+    else:
+        Production_Line="'{}'".format(Production_Line)
+    
     cursor = conn.cursor()
     sqlcmd='''
     INSERT INTO ngrecord
     (NgTime, CarModel, SeatModel, WicoPartNumber, TsPartNumber, PartName, PartType, Supplier, NgInfo, RepairMethod, Lot, ManufactureDate, "Production Line", Sync)
-    VALUES('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', 0)
+    VALUES('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', {}, {}, {}, 0)
     '''.format(NgTime, CarModel, SeatModel, WicoPartNumber, TsPartNumber, PartName, PartType, Supplier, NgInfo, RepairMethod, Lot, ManufactureDate, Production_Line, Sync)
+    #print(sqlcmd)
     cursor.execute(sqlcmd)
     values = cursor.fetchall()
     cursor.close()
     conn.commit()
     return RepairMethod
 
+
+def query_volume(C_M_Date):
+    cursor = conn.cursor()
+    sqlcmd='''
+    SELECT
+    C_M_Date,
+    CarModel,
+    SeatModel,
+    Day,
+    Night,
+    Sync 
+    FROM
+    volume
+    WHERE
+    C_M_Date = "{}"
+    ORDER BY CarModel,SeatModel
+    '''.format(C_M_Date)
+    cursor.execute(sqlcmd)
+    values = cursor.fetchall()
+    cursor.close()
+    return values
+
+
+
+def query_nginfo():
+    t=datetime.datetime.now()-datetime.timedelta(hours=8)
+    t=t.strftime("%Y-%m-%d")
+    t=t+" 08:00:00"
+    
+    cursor = conn.cursor()
+    sqlcmd='''
+        SELECT
+                CarModel,
+                SeatModel,
+                WicoPartNumber,
+                TsPartNumber,
+                PartName,
+                NgInfo,
+                RepairMethod,
+                Lot,
+                ManufactureDate
+        FROM
+                ngrecord
+        WHERE NgTime>"{}"
+        ORDER BY CarModel,SeatModel,WicoPartNumber,NgInfo
+    '''.format(t)
+    cursor.execute(sqlcmd)
+    values = cursor.fetchall()
+    cursor.close()
+    return values
+
+
+
+def submit_volume(C_M_Date,CarModel,SeatModel,Day,Night):
+    cursor = conn.cursor()
+    sqlcmd='''
+    REPLACE
+    INTO
+	volume
+    (C_M_Date,CarModel,SeatModel,Day,Night,Sync)
+    VALUES
+    ('{}','{}','{}','{}','{}',0)
+    '''.format(C_M_Date,CarModel,SeatModel,Day,Night)
+    cursor.execute(sqlcmd)
+    values = cursor.fetchall()
+    cursor.close()
+    conn.commit()
+    return values
 
 
 
@@ -333,6 +440,7 @@ def uploade_ngrecord(NgTime, CarModel, SeatModel, WicoPartNumber, TsPartNumber, 
 
 
 if __name__=="__main__":
+
     CarModel=get_CarModel()
     pprint.pprint(CarModel)
 
@@ -342,11 +450,18 @@ if __name__=="__main__":
     PartType=get_PartType("2VH","手动-前排-左席座椅")
     pprint.pprint(PartType)
 
-    WicoPartNumber,TsPartNumber,PartName=get_PartNumberName("2VH","手动-前排-左席座椅","手动滑轨")
+    WicoPartNumber,TsPartNumber,PartName,Supplier,Regular,Production_Line,PartPicUrl=get_PartNumberName("2VH","手动-前排-左席座椅","手动滑轨")
     pprint.pprint(WicoPartNumber)
     pprint.pprint(TsPartNumber)
     pprint.pprint(PartName)
+    pprint.pprint(Supplier)
+    pprint.pprint(Regular)
+    pprint.pprint(Production_Line)
+    pprint.pprint(PartPicUrl)
 
+    a=search_barcode("21-3390210W-2","1")
+    print(a)
+    '''
     WicoPartNumber,TsPartNumber,PartName,PartPicUrl,Production_Line,Regular=get_DetailByName("2VH","手动-前排-左席座椅","手动滑轨","SLIDE ADJR OUT L,FR SEAT")
     print(WicoPartNumber,TsPartNumber,PartName,PartPicUrl,Production_Line,Regular)
 
@@ -355,9 +470,9 @@ if __name__=="__main__":
     print("\n",WicoPartNumber,TsPartNumber,PartName,PartPicUrl,Production_Line,Regular)
 
     #使用扫码方式输入
-    Regular=get_Regular()
+    Regular=get_Regulars()
 
-    Supplier,PartType,WicoPartNumber,TsPartNumber,PartName,PartPicUrl,CarModel=get_CarModelBybar("23-4739141-2")
+    Supplier,PartType,WicoPartNumber,TsPartNumber,PartName,PartPicUrl,CarModel=get_CarModelBybar("23-4855430-2")
     print("\n",PartType,WicoPartNumber,TsPartNumber,PartName,PartPicUrl,CarModel)
 
     SeatModel=get_SeatModelBybar("2311-419-120","2VH")
@@ -370,6 +485,13 @@ if __name__=="__main__":
     print("\n",RepairMethod)
 
     uploade_ngrecord("2022-03-29 14:30:21", "2LQ", '手动-前排-左席座椅', WicoPartNumber, TsPartNumber, PartName, PartType, Supplier, '上导轨螺丝脱落', '更换滑轨', "lotnumber", "2022-03-29", "58106", 0)
+
+
+
+    pprint.pprint(query_volume("2022-04-01"))
     
-    a=search_barcode("lotnumber")
-    print(a)
+    submit_volume("2022-04-02","2YC","test-car","10","10")
+
+    pprint.pprint(query_nginfo())
+    '''
+

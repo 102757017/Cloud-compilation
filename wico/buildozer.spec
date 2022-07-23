@@ -37,7 +37,8 @@ requirements =
     android,
     #opencv-python,
     xcamera,
-    pyzbar
+    pyzbar,
+    mariadb
 
 
 # (str) Custom source folders for requirements
@@ -69,7 +70,7 @@ android.api = 28
 android.minapi = 21
 
 # (str) Android NDK version to use
-android.ndk = 19b
+android.ndk = 23b
 
 # (bool) If True, then skip trying to update the Android sdk
 # This can be useful to avoid excess Internet downloads or save time
