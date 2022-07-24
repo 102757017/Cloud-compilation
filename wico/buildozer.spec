@@ -38,7 +38,7 @@ requirements =
     #opencv-python,
     xcamera,
     pyzbar,
-    mariadb
+    pymysql
 
 
 # (str) Custom source folders for requirements

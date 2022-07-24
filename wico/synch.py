@@ -5,9 +5,8 @@ import time
 import os
 import sys
 import pprint
-import mariadb
-
-
+import pymysql
+import traceback
 
 if getattr(sys, 'frozen', False):
     bundle_dir = sys._MEIPASS
@@ -224,7 +223,7 @@ def sync_all():
     sqlite_conn = sqlite3.connect('db.db')
     
     try: 
-        mariadb_conn = mariadb.connect( 
+        mariadb_conn = pymysql.connect( 
         user="hewei", 
         password="wico2022", 
         host="sunnyho.f3322.net", 
@@ -242,8 +241,8 @@ def sync_all():
         sync_ngtype(sqlite_conn,mariadb_conn)
         print("不良类型及维修方法已同步完成")
         return True
-    except mariadb.Error as e: 
-        print(f"Error connecting to MariaDB Platform: {e}") 
+    except Exception:
+        print(traceback.format_exc())
         return False
 
     

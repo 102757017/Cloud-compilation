@@ -6,7 +6,6 @@ import os
 import sys
 import pprint
 import datetime
-import pymysql
 
 if getattr(sys, 'frozen', False):
     bundle_dir = sys._MEIPASS
