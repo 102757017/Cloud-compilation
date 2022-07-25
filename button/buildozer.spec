@@ -39,7 +39,8 @@ version = 0.0.1
 # comma separated e.g. requirements = sqlite3,kivy
 requirements = python3, \
                kivy==2.1.0, \
-               https://github.com/kivymd/KivyMD/archive/master.zip, \
+               git+https://github.com/102757017/KivyMD.git@master, \
+               sdl2_ttf==2.0.15, \
                pillow
 
 # (str) Supported orientation (one of landscape, sensorLandscape, portrait or all)
