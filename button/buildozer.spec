@@ -1,10 +1,10 @@
 [app]
 
 # (str) Title of your application
-title = cam
+title = button
 
 # (str) Package name
-package.name = cam
+package.name = button
 
 # (str) Package domain (needed for android/ios packaging)
 package.domain = org.kivymd
