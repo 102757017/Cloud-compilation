@@ -29,8 +29,8 @@ android.numeric_version = 1
 requirements = 
     python3==3.8.5,
     #kivy[base] @ https://github.com/102757017/kivy/archive/master.zip,
-    kivy,
-    KivyMD,
+    kivy==2.1.0,
+    KivyMD==0.104.2,
     sqlite3,
     sdl2_ttf==2.0.15,
     pillow,
