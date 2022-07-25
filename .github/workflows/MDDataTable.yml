@@ -25,6 +25,7 @@ jobs:
         uses: ArtemSBulgakov/buildozer-action@v1
         id: buildozer
         with:
+          command: buildozer android debug
           workdir: MDDataTable
           buildozer_version: stable
          
