@@ -36,7 +36,7 @@ version = 1.0.0
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3==3.7.5,hostpython3==3.7.5,kivy,kivymd #<----------应用依赖包，非常重要，大部分闪退都是因为具体的依赖包没有打进来
+requirements = kivy==2.0.0, kivymd==0.104.2, sdl2_ttf == 2.0.15 #<----------应用依赖包，非常重要，大部分闪退都是因为具体的依赖包没有打进来
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -214,7 +214,7 @@ fullscreen = 0   # <---------------全屏显示1，非全屏0
 #android.copy_libs = 1
 
 # (str) The Android arch to build for, choices: armeabi-v7a, arm64-v8a, x86, x86_64
-android.arch = armeabi-v7a
+android.archs = armeabi-v7a
 
 # (int) overrides automatic versionCode computation (used in build.gradle)
 # this is not the same as app version and should only be edited if you know what you're doing
