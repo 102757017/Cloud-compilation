@@ -12,21 +12,9 @@ from synch import sync_all
 from kivy.logger import Logger
 from pathlib import Path
 
+
 #  所有基于模块的使用到__file__属性的代码，在源码运行时表示的是当前脚本的绝对路径，但是用pyinstaller打包后就是当前模块的模块名（即文件名xxx.py）
 #  因此需要用以下代码来获取exe的绝对路径
-if getattr(sys, 'frozen', False):
-    bundle_dir = sys._MEIPASS
-else:
-    bundle_dir = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(bundle_dir)
-
-Logger.info('__file__：'+__file__)
-Logger.info("os.getcwd:"+os.getcwd())
-if getattr(sys, 'frozen', False):
-    print("MEIPASS路径:"+sys._MEIPASS)
-    print('\n')
-Logger.info("python的环境变量目录sys.path:")
-Logger.info(sys.path)
 
 
 if getattr(sys, "frozen", False):  # bundle mode with PyInstaller
@@ -35,7 +23,8 @@ else:
     os.environ["WICO_ROOT"] = str(Path(__file__).parent)
 
 KV_DIR = f"{os.environ['WICO_ROOT']}"
-Logger.info("KV_DIR:"+KV_DIR)
+sys.path.append(KV_DIR)
+Logger.info("Main_KV_DIR:"+KV_DIR)
 
 
 from kivy.utils import platform
@@ -75,10 +64,10 @@ class ScreenManager(ScreenManager):
         self.Others=Others()
         
         self.scn=MainScreen()
-        self.scn.ids.tab.add_widget(self.EnterNgIfo)
+        #self.scn.ids.tab.add_widget(self.EnterNgIfo)
         self.scn.ids.tab.add_widget(self.Manual_input)
         self.scn.ids.tab.add_widget(self.OutPutInfo)
-        self.scn.ids.tab.add_widget(self.Nginfo_tables)
+        #self.scn.ids.tab.add_widget(self.Nginfo_tables)
         self.scn.ids.tab.add_widget(self.Others)
         
         self.add_widget(self.scn)
@@ -118,7 +107,6 @@ class DemoApp(MDApp):
         
     
 if __name__ == '__main__':
-    
     Builder.load_file( f"{os.environ['WICO_ROOT']}/mainscreen.kv" )
     Builder.load_file( f"{os.environ['WICO_ROOT']}/CameraScreen.kv" )
     DemoApp().run()
