@@ -101,6 +101,16 @@ class DemoApp(MDApp):
         
     
 if __name__ == '__main__':
+    print('当前脚本的绝对路径：',__file__)
+    print('\n')
+    print("当前脚本工作的目录路径:",os.getcwd())
+    print('\n')
+    if getattr(sys, 'frozen', False):
+        print("MEIPASS路径:",sys._MEIPASS)
+        print('\n')
+    print("python的环境变量目录:")
+    print(sys.path)
+    print('\n')
     #如果KV定义了一个Root Widget，它将附加到 App 的root 属性并用作应用程序的根部件，这个根部件附加完成后，再执行__init__中的代码。
     Builder.load_file( 'MainScreen.kv' )
     Builder.load_file( 'CameraScreen.kv' )
