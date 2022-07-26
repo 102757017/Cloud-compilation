@@ -18,15 +18,20 @@ from kivymd.uix.textfield import MDTextField
 from barcode_analysis import analysis_part_lable
 import re
 from synch import sync_all
+from pathlib import Path
+from kivy.logger import Logger
+
 
 #  所有基于模块的使用到__file__属性的代码，在源码运行时表示的是当前脚本的绝对路径，但是用pyinstaller打包后就是当前模块的模块名（即文件名xxx.py）
 #  因此需要用以下代码来获取exe的绝对路径
-if getattr(sys, 'frozen', False):
-    bundle_dir = sys._MEIPASS
+if getattr(sys, "frozen", False):  # bundle mode with PyInstaller
+    os.environ["WICO_ROOT"] = sys._MEIPASS
 else:
-    bundle_dir = os.path.dirname(os.path.abspath(__file__))
-print(bundle_dir)
-sys.path.append(bundle_dir)
+    os.environ["WICO_ROOT"] = str(Path(__file__).parent)
+
+KV_DIR = f"{os.environ['WICO_ROOT']}"
+sys.path.append(KV_DIR)
+Logger.info("Manual_input_KV_DIR:"+KV_DIR)
 
 
 '''
@@ -302,5 +307,5 @@ class DemoApp(MDApp):
     
 if __name__ == '__main__':
     #如果KV定义了一个Root Widget，它将附加到 App 的root 属性并用作应用程序的根部件，这个根部件附加完成后，再执行__init__中的代码。
-    Builder.load_file( 'manual_input.kv' )
+    Builder.load_file( f"{os.environ['WICO_ROOT']}/manual_input.kv" )
     DemoApp().run()

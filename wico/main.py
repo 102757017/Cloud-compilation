@@ -11,7 +11,7 @@ from functools import partial
 from synch import sync_all
 from kivy.logger import Logger
 from pathlib import Path
-
+from kivy.clock import Clock
 
 #  所有基于模块的使用到__file__属性的代码，在源码运行时表示的是当前脚本的绝对路径，但是用pyinstaller打包后就是当前模块的模块名（即文件名xxx.py）
 #  因此需要用以下代码来获取exe的绝对路径
@@ -55,23 +55,26 @@ class ScreenManager(ScreenManager):
     def __init__(self, **kwargs):
         #一定要注意这里要加super，才能把现有的新初始化方法覆盖掉继承来的旧初始化方法
         super(ScreenManager, self).__init__(**kwargs)
-        #self.EnterNgIfo=EnterNgIfo()
-        #self.Manual_input=Manual_input()
-        #self.OutPutInfo=OutPutInfo()
+        self.EnterNgIfo=EnterNgIfo()
+        self.Manual_input=Manual_input()
+        self.OutPutInfo=OutPutInfo()
         self.Nginfo_tables=Nginfo_tables()
         #电脑必须连接摄像头，否则会报错
-        #self.CameraScreen=CameraScreen()
-        #self.Others=Others()
+        self.CameraScreen=CameraScreen()
+        self.Others=Others()
         
         self.scn=MainScreen()
-        #self.scn.ids.tab.add_widget(self.EnterNgIfo)
-        #self.scn.ids.tab.add_widget(self.Manual_input)
-        #self.scn.ids.tab.add_widget(self.OutPutInfo)
+        self.scn.ids.tab.add_widget(self.EnterNgIfo)
+        self.scn.ids.tab.add_widget(self.Manual_input)
+        self.scn.ids.tab.add_widget(self.OutPutInfo)
         self.scn.ids.tab.add_widget(self.Nginfo_tables)
-        #self.scn.ids.tab.add_widget(self.Others)
+        self.scn.ids.tab.add_widget(self.Others)
         
         self.add_widget(self.scn)
-        #self.add_widget(self.CameraScreen)
+        self.add_widget(self.CameraScreen)
+        Clock.schedule_once(self.sync,10)
+
+    def sync(self, a):
         f=sync_all()
         if f==True:
             toast("数据已上传到服务器")
@@ -79,9 +82,9 @@ class ScreenManager(ScreenManager):
             toast("数据上传到服务器失败，稍后重新启动app将再次尝试上传")
 
 class DemoApp(MDApp):
-
     def build(self):
-        return ScreenManager()
+        s=ScreenManager()
+        return s
 
     def start_cam(self):
         self.root.current = 'camera'

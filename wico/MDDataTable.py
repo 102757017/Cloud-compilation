@@ -1,8 +1,6 @@
 from kivy.metrics import dp
-
 from kivymd.app import MDApp
 from kivymd.uix.datatables import MDDataTable
-from kivymd.uix.screen import MDScreen
 from search import *
 from kivymd.uix.tab import MDTabsBase
 from kivymd.uix.floatlayout import MDFloatLayout

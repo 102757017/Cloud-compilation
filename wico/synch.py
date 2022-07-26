@@ -7,12 +7,16 @@ import sys
 import pprint
 import pymysql
 import traceback
+from pathlib import Path
+from kivy.logger import Logger
 
-if getattr(sys, 'frozen', False):
-    bundle_dir = sys._MEIPASS
+
+if getattr(sys, "frozen", False):  # bundle mode with PyInstaller
+    os.environ["WICO_ROOT"] = sys._MEIPASS
 else:
-    bundle_dir = os.path.dirname(os.path.abspath(__file__))
-os.chdir(bundle_dir)
+    os.environ["WICO_ROOT"] = str(Path(__file__).parent)
+
+KV_DIR = f"{os.environ['WICO_ROOT']}"
 
 
 
@@ -220,7 +224,7 @@ def sync_all():
     # 连接到SQLite数据库
     # 数据库文件是test.db
     # 如果文件不存在，会自动在当前目录创建:
-    sqlite_conn = sqlite3.connect('db.db')
+    sqlite_conn = sqlite3.connect(f"{os.environ['WICO_ROOT']}/db.db")
     
     try: 
         mariadb_conn = pymysql.connect( 
