@@ -37,7 +37,7 @@ version = 0.0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3, \
+requirements = python3==3.8.1, \
                kivy==2.1.0, \
                git+https://github.com/102757017/KivyMD.git@master, \
                pillow, \
