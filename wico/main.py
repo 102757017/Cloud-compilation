@@ -55,20 +55,20 @@ class ScreenManager(ScreenManager):
     def __init__(self, **kwargs):
         #一定要注意这里要加super，才能把现有的新初始化方法覆盖掉继承来的旧初始化方法
         super(ScreenManager, self).__init__(**kwargs)
-        self.EnterNgIfo=EnterNgIfo()
-        self.Manual_input=Manual_input()
-        self.OutPutInfo=OutPutInfo()
-        #self.Nginfo_tables=Nginfo_tables()
+        #self.EnterNgIfo=EnterNgIfo()
+        #self.Manual_input=Manual_input()
+        #self.OutPutInfo=OutPutInfo()
+        self.Nginfo_tables=Nginfo_tables()
         #电脑必须连接摄像头，否则会报错
         #self.CameraScreen=CameraScreen()
-        self.Others=Others()
+        #self.Others=Others()
         
         self.scn=MainScreen()
-        self.scn.ids.tab.add_widget(self.EnterNgIfo)
-        self.scn.ids.tab.add_widget(self.Manual_input)
-        self.scn.ids.tab.add_widget(self.OutPutInfo)
-        #self.scn.ids.tab.add_widget(self.Nginfo_tables)
-        self.scn.ids.tab.add_widget(self.Others)
+        #self.scn.ids.tab.add_widget(self.EnterNgIfo)
+        #self.scn.ids.tab.add_widget(self.Manual_input)
+        #self.scn.ids.tab.add_widget(self.OutPutInfo)
+        self.scn.ids.tab.add_widget(self.Nginfo_tables)
+        #self.scn.ids.tab.add_widget(self.Others)
         
         self.add_widget(self.scn)
         #self.add_widget(self.CameraScreen)
