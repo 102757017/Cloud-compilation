@@ -5,7 +5,7 @@ from search import *
 from kivymd.uix.tab import MDTabsBase
 from kivymd.uix.floatlayout import MDFloatLayout
 from kivy.uix.screenmanager import Screen
-
+import pprint
 
 
 
@@ -15,6 +15,8 @@ class Nginfo_tables(MDFloatLayout, MDTabsBase):
         super().__init__(**kwargs)
         self.title="已录入NG信息"
         self.name="inputed_ng_info"
+
+
 
     
     def on_row_press(self, instance_table, instance_row):
@@ -27,7 +29,7 @@ class Nginfo_tables(MDFloatLayout, MDTabsBase):
 
     #更新表格中的数据
     def update(self):
-        self.clear_widget()
+        self.clear_widgets()
         info=query_nginfo()
         self.data_tables = MDDataTable(
             use_pagination=True,
