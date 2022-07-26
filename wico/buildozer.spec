@@ -77,6 +77,9 @@ android.release_artifact = apk
 # (str) python-for-android branch to use, defaults to master
 p4a.branch = develop
 
+# (list) Permissions
+android.permissions = CAMERA,INTERNET,READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE
+
 [buildozer]
 
 # (int) Log level (0 = error only, 1 = info, 2 = debug (with command output))
