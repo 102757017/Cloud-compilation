@@ -58,7 +58,7 @@ class ScreenManager(ScreenManager):
         self.EnterNgIfo=EnterNgIfo()
         self.Manual_input=Manual_input()
         self.OutPutInfo=OutPutInfo()
-        self.Nginfo_tables=Nginfo_tables()
+        #self.Nginfo_tables=Nginfo_tables()
         #电脑必须连接摄像头，否则会报错
         #self.CameraScreen=CameraScreen()
         self.Others=Others()
@@ -67,7 +67,7 @@ class ScreenManager(ScreenManager):
         self.scn.ids.tab.add_widget(self.EnterNgIfo)
         self.scn.ids.tab.add_widget(self.Manual_input)
         self.scn.ids.tab.add_widget(self.OutPutInfo)
-        self.scn.ids.tab.add_widget(self.Nginfo_tables)
+        #self.scn.ids.tab.add_widget(self.Nginfo_tables)
         self.scn.ids.tab.add_widget(self.Others)
         
         self.add_widget(self.scn)
