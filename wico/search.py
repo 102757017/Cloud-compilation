@@ -8,7 +8,8 @@ import pprint
 import datetime
 from pathlib import Path
 from kivy.logger import Logger
-
+import traceback
+import pymysql
 
 
 
@@ -392,27 +393,40 @@ def query_nginfo():
     t=t.strftime("%Y-%m-%d")
     t=t+" 08:00:00"
     
-    cursor = conn.cursor()
-    sqlcmd='''
-        SELECT
-                CarModel,
-                SeatModel,
-                WicoPartNumber,
-                TsPartNumber,
-                PartName,
-                NgInfo,
-                RepairMethod,
-                Lot,
-                ManufactureDate
-        FROM
-                ngrecord
-        WHERE NgTime>"{}"
-        ORDER BY CarModel,SeatModel,WicoPartNumber,NgInfo
-    '''.format(t)
-    cursor.execute(sqlcmd)
-    values = cursor.fetchall()
-    cursor.close()
-    return values
+    try: 
+        mariadb_conn = pymysql.connect( 
+        user="hewei", 
+        password="wico2022", 
+        host="sunnyho.f3322.net", 
+        port=3306, 
+        database="pyytest" )
+
+        mariadb_cursor = mariadb_conn.cursor()
+        
+        sqlcmd='''
+            SELECT
+                    CarModel,
+                    SeatModel,
+                    WicoPartNumber,
+                    TsPartNumber,
+                    PartName,
+                    NgInfo,
+                    RepairMethod,
+                    Lot,
+                    ManufactureDate
+            FROM
+                    ngrecord
+            WHERE NgTime>"{}"
+            ORDER BY CarModel,SeatModel,WicoPartNumber,NgInfo
+        '''.format(t)
+        mariadb_cursor.execute(sqlcmd)
+        values = mariadb_cursor.fetchall()
+        mariadb_cursor.close()
+        return values
+        
+    except Exception:
+        print(traceback.format_exc())
+        return []
 
 
 
