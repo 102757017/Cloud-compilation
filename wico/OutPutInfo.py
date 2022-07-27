@@ -164,7 +164,7 @@ class OutPutInfo(MDFloatLayout, MDTabsBase):
                     toast("数据上传到服务器失败，稍后重新启动app将再次尝试上传")
             else:
                 toast("{}车型的{}座椅数据未填写完整".format(self.CarModel_rows[i].text,self.SeatModel_rows[i].text))
-        self.ids.submit.disabled=True
+        self.ids.submit.disabled=False
 
 
 class DemoApp(MDApp):
