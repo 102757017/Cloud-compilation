@@ -131,7 +131,7 @@ class EnterNgIfo(MDFloatLayout, MDTabsBase):
                                  ManufactureDate,
                                  Production_Line,
                                  0)
-                toast("数据在本地保存完成")
+                #toast("数据在本地保存完成")
                 f=sync_all()
                 if f==True:
                     toast("数据已上传到服务器")
