@@ -20,8 +20,8 @@ class Nginfo_tables(MDFloatLayout, MDTabsBase):
     def update(self):
         self.clear_widgets()
         info=query_nginfo()
+        info=list(info)
         if len(info)>0:
-            info=list(info)
             self.data_tables = MDDataTable(
                 use_pagination=True,
                 check=True,
