@@ -16,17 +16,6 @@ class Nginfo_tables(MDFloatLayout, MDTabsBase):
         self.title="已录入NG信息"
         self.name="inputed_ng_info"
 
-
-
-    
-    def on_row_press(self, instance_table, instance_row):
-        '''Called when a table row is clicked.'''
-        print(instance_table, instance_row)
-
-    def on_check_press(self, instance_table, current_row):
-        '''Called when the check box in the table row is checked.'''
-        print(instance_table, current_row)
-
     #更新表格中的数据
     def update(self):
         self.clear_widgets()
@@ -47,8 +36,6 @@ class Nginfo_tables(MDFloatLayout, MDTabsBase):
             ],
             row_data=info,
         )
-        self.data_tables.bind(on_row_press=self.on_row_press)
-        self.data_tables.bind(on_check_press=self.on_check_press)
         self.add_widget(self.data_tables)        
  
 
