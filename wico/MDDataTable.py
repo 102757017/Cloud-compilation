@@ -20,23 +20,24 @@ class Nginfo_tables(MDFloatLayout, MDTabsBase):
     def update(self):
         self.clear_widgets()
         info=query_nginfo()
-        self.data_tables = MDDataTable(
-            use_pagination=True,
-            check=True,
-            column_data=[
-                ("车型", dp(20)),
-                ("座椅型号", dp(55)),
-                ("WICO番号", dp(25)),
-                ("TS番号", dp(45)),
-                ("零件名称", dp(50)),
-                ("不良信息", dp(50)),
-                ("维修方法", dp(50)),
-                ("批次号", dp(30)),
-                ("生产日期", dp(20)),
-            ],
-            row_data=info,
-        )
-        self.add_widget(self.data_tables)        
+        if len(info)>0:
+            self.data_tables = MDDataTable(
+                use_pagination=True,
+                check=True,
+                column_data=[
+                    ("车型", dp(20)),
+                    ("座椅型号", dp(55)),
+                    ("WICO番号", dp(25)),
+                    ("TS番号", dp(45)),
+                    ("零件名称", dp(50)),
+                    ("不良信息", dp(50)),
+                    ("维修方法", dp(50)),
+                    ("批次号", dp(30)),
+                    ("生产日期", dp(20)),
+                ],
+                row_data=info,
+            )
+            self.add_widget(self.data_tables)        
  
 
 class DemoApp(MDApp):
