@@ -158,14 +158,11 @@ class OutPutInfo(MDFloatLayout, MDTabsBase):
                     self.SeatModel_rows[i].text,
                     self.Day_rows[i].text,
                     self.Night_rows[i].text)
-                toast("数据已在本地保存")
-                f=sync_all()
-                if f==True:
-                    toast("数据已上传到服务器")
-                else:
-                    toast("数据上传到服务器失败，稍后重新启动app将再次尝试上传")
             else:
                 toast("{}车型的{}座椅数据未填写完整".format(self.CarModel_rows[i].text,self.SeatModel_rows[i].text))
+        f=sync_all()
+        if f==False:
+            toast("数据上传到服务器失败，稍后重新启动app将再次尝试上传")
         self.ids.submit.disabled=False
 
 
