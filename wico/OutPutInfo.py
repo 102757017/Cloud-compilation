@@ -23,7 +23,7 @@ from kivymd.uix.tab import MDTabsBase
 from synch import sync_all
 from pathlib import Path
 from kivy.logger import Logger
-
+import threading
 
 #  所有基于模块的使用到__file__属性的代码，在源码运行时表示的是当前脚本的绝对路径，但是用pyinstaller打包后就是当前模块的模块名（即文件名xxx.py）
 #  因此需要用以下代码来获取exe的绝对路径
@@ -148,22 +148,39 @@ class OutPutInfo(MDFloatLayout, MDTabsBase):
 
 
     def upload_volume(self):
-        self.ids.submit.disabled=True
         Date=self.ids.date.text
+        data=[]
         for i in range(len(self.CarModel_rows)):
             if self.SeatModel_rows[i].text !="" and (self.Day_rows[i].text !="0" or self.Night_rows[i].text !="0"):
-                submit_volume(
+                d=(
                     Date,
                     self.CarModel_rows[i].text,
                     self.SeatModel_rows[i].text,
                     self.Day_rows[i].text,
-                    self.Night_rows[i].text)
+                    self.Night_rows[i].text,
+                    0
+                   )
+                data.append(d)                
             else:
                 toast("{}车型的{}座椅数据未填写完整".format(self.CarModel_rows[i].text,self.SeatModel_rows[i].text))
+        #print(data)
+        data=str(data)[1:-1]
+        t1 = threading.Thread(target=self.child_Thread,args=(data,))
+        t1.start()
+        t1.join()
+        if self.flag==True:
+            toast("数据已同步到服务器")
+        else:
+            toast("数据上传到服务器失败，稍后重新启动app将再次尝试上传")
+        
+
+    def child_Thread(self,data):
+        submit_volume(data)
         f=sync_all()
         if f==False:
-            toast("数据上传到服务器失败，稍后重新启动app将再次尝试上传")
-        self.ids.submit.disabled=False
+            self.flag=False
+        else:
+            self.flag=True
 
 
 class DemoApp(MDApp):
