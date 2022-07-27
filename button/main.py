@@ -5,6 +5,8 @@ from kivymd.uix.button import MDFlatButton
 import random
 from functools import partial
 from kivy.uix.boxlayout import BoxLayout
+from kivymd.toast import toast
+
 
 '''
 Kv 语言特有的三个关键字：
@@ -61,7 +63,11 @@ class OneScreen(Screen):
     
     def button2_fuc(self,*args):
         self.ids.button1.text="I am changed {}".format(random.randint(0,9))
-        self.btn2.text="the newest button changed too {}".format(random.randint(0,9))
+        self.btn2.text="the newest button changed to {}".format(random.randint(0,9))
+        toast("我是toast1")
+        toast("我是toast2")
+        toast("我是toast3")
+        toast("我是toast4")
 
     def button3_fuc(self,*args):
         self.btn3.text=args[0]
