@@ -61,9 +61,11 @@ class OutPutInfo(MDFloatLayout, MDTabsBase):
 
         
     def load_volume(self):
-        #根据日期在数据库中查询当天的产量
-        values=query_volume(self.ids.date.text)
-        #values=query_volume("2022-04-01")
+        #根据日期在数据库中查询当天的产量,优先显示服务器数据
+        values=query_volume_server(self.ids.date.text)
+        if values==None:
+            values=query_volume_local(self.ids.date.text)
+        #values=query_volume_local("2022-04-01")
         self.CarModel_rows=[]
         self.SeatModel_rows=[]
         self.Day_rows=[]
