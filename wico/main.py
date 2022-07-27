@@ -73,16 +73,15 @@ class ScreenManager(ScreenManager):
         
         self.add_widget(self.scn)
         self.add_widget(self.CameraScreen)
-
-
-class DemoApp(MDApp):
-    def on_start(self):
+        
         f=sync_all()
         if f==True:
             toast("数据已上传到服务器")
         else:
-            toast("数据上传到服务器失败，稍后重新启动app将再次尝试上传")
-            
+            toast("数据上传到服务器失败，稍后重新启动app将再次尝试上传")        
+
+
+class DemoApp(MDApp):
     def build(self):
         s=ScreenManager()
         return s
