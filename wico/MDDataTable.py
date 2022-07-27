@@ -6,7 +6,7 @@ from kivymd.uix.tab import MDTabsBase
 from kivymd.uix.floatlayout import MDFloatLayout
 from kivy.uix.screenmanager import Screen
 import pprint
-
+from kivy.logger import Logger
 
 
 class Nginfo_tables(MDFloatLayout, MDTabsBase):
@@ -36,9 +36,12 @@ class Nginfo_tables(MDFloatLayout, MDTabsBase):
                     ("批次号", dp(30)),
                     ("生产日期", dp(20)),
                 ],
-                row_data=info,
             )
-            self.add_widget(self.data_tables)        
+            self.add_widget(self.data_tables) 
+            for i in info:
+                Logger.info("源数据:"+str(i))
+                self.data_tables.add_row(i)
+                Logger.info("MDDataTable追加完成1条数据")
  
 
 class DemoApp(MDApp):
