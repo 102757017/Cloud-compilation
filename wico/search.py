@@ -365,7 +365,7 @@ def uploade_ngrecord(NgTime, CarModel, SeatModel, WicoPartNumber, TsPartNumber, 
     return RepairMethod
 
 
-def query_volume(C_M_Date):
+def query_volume_local(C_M_Date):
     cursor = conn.cursor()
     sqlcmd='''
     SELECT
@@ -385,6 +385,40 @@ def query_volume(C_M_Date):
     values = cursor.fetchall()
     cursor.close()
     return values
+
+def query_volume_server(C_M_Date):
+    try: 
+        mariadb_conn = pymysql.connect( 
+        user="hewei", 
+        password="wico2022", 
+        host="sunnyho.f3322.net", 
+        port=3306, 
+        database="pyytest" )
+
+        mariadb_cursor = mariadb_conn.cursor()
+        
+        sqlcmd='''
+        SELECT
+        C_M_Date,
+        CarModel,
+        SeatModel,
+        Day,
+        Night,
+        Sync 
+        FROM
+        volume
+        WHERE
+        C_M_Date = "{}"
+        ORDER BY CarModel,SeatModel
+        '''.format(C_M_Date)
+        mariadb_cursor.execute(sqlcmd)
+        values = mariadb_cursor.fetchall()
+        mariadb_cursor.close()
+        return values
+       
+    except Exception:
+        print(traceback.format_exc())
+        return None
 
 
 
@@ -509,7 +543,7 @@ if __name__=="__main__":
 
 
 
-    pprint.pprint(query_volume("2022-04-01"))
+    pprint.pprint(query_volume_local("2022-04-01"))
     
     submit_volume("2022-04-02","2YC","test-car","10","10")
 
