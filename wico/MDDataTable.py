@@ -15,34 +15,58 @@ class Nginfo_tables(MDFloatLayout, MDTabsBase):
         super().__init__(**kwargs)
         self.title="已录入NG信息"
         self.name="inputed_ng_info"
+        
+        info=query_nginfo()
+        self.data_tables = MDDataTable(
+            use_pagination=False,
+            check=True,
+            column_data=[
+                ("车型", dp(20)),
+                ("座椅型号", dp(55)),
+                ("WICO番号", dp(25)),
+                ("TS番号", dp(45)),
+                ("零件名称", dp(50)),
+                ("不良信息", dp(50)),
+                ("维修方法", dp(50)),
+                ("批次号", dp(30)),
+                ("生产日期", dp(20)),
+            ],
+            row_data=info
+            )
+        self.data_tables.bind(on_row_press=self.on_row_press)
+        self.data_tables.bind(on_check_press=self.on_check_press)
+        self.add_widget(self.data_tables)         
 
     #更新表格中的数据
     def update(self):
         self.clear_widgets()
         info=query_nginfo()
-        info=list(info)
-        if len(info)>0:
-            self.data_tables = MDDataTable(
-                use_pagination=True,
-                check=True,
-                column_data=[
-                    ("车型", dp(20)),
-                    ("座椅型号", dp(55)),
-                    ("WICO番号", dp(25)),
-                    ("TS番号", dp(45)),
-                    ("零件名称", dp(50)),
-                    ("不良信息", dp(50)),
-                    ("维修方法", dp(50)),
-                    ("批次号", dp(30)),
-                    ("生产日期", dp(20)),
-                ],
+        self.data_tables = MDDataTable(
+            use_pagination=False,
+            check=True,
+            column_data=[
+                ("车型", dp(20)),
+                ("座椅型号", dp(55)),
+                ("WICO番号", dp(25)),
+                ("TS番号", dp(45)),
+                ("零件名称", dp(50)),
+                ("不良信息", dp(50)),
+                ("维修方法", dp(50)),
+                ("批次号", dp(30)),
+                ("生产日期", dp(20)),
+            ],
+            row_data=info
             )
-            self.add_widget(self.data_tables) 
-            for i in info:
-                Logger.info("源数据:"+str(i))
-                self.data_tables.add_row(i)
-                Logger.info("MDDataTable追加完成1条数据")
+        self.data_tables.bind(on_row_press=self.on_row_press)
+        self.data_tables.bind(on_check_press=self.on_check_press)
+        self.add_widget(self.data_tables) 
  
+    def on_row_press(self, instance_table, instance_row):
+        '''Called when a table row is clicked.'''
+        print(instance_table, instance_row)
+
+    def on_check_press(self, instance_table, current_row):
+        '''Called when the check box in the table row is checked.'''
 
 class DemoApp(MDApp):
 

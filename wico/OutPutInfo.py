@@ -167,11 +167,7 @@ class OutPutInfo(MDFloatLayout, MDTabsBase):
         data=str(data)[1:-1]
         t1 = threading.Thread(target=self.child_Thread,args=(data,))
         t1.start()
-        t1.join()
-        if self.flag==True:
-            toast("数据已同步到服务器")
-        else:
-            toast("数据上传到服务器失败，稍后重新启动app将再次尝试上传")
+        toast("数据同步...")
         
 
     def child_Thread(self,data):

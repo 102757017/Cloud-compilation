@@ -79,8 +79,7 @@ class ScreenManager(ScreenManager):
         self.add_widget(self.scn)
         self.add_widget(self.CameraScreen)
         
-        t1.join()
-        toast("数据已同步完成") 
+        toast("同步数据中") 
         
     def sync(self):
         f=sync_all()
