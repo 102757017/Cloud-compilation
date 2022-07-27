@@ -21,6 +21,7 @@ class Nginfo_tables(MDFloatLayout, MDTabsBase):
         self.clear_widgets()
         info=query_nginfo()
         if len(info)>0:
+            info=list(info)
             self.data_tables = MDDataTable(
                 use_pagination=True,
                 check=True,
