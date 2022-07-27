@@ -464,7 +464,8 @@ def query_nginfo():
 
 
 
-def submit_volume(C_M_Date,CarModel,SeatModel,Day,Night):
+def submit_volume(data):
+    conn = sqlite3.connect(f"{os.environ['WICO_ROOT']}/db.db")
     cursor = conn.cursor()
     sqlcmd='''
     REPLACE
@@ -472,8 +473,9 @@ def submit_volume(C_M_Date,CarModel,SeatModel,Day,Night):
 	volume
     (C_M_Date,CarModel,SeatModel,Day,Night,Sync)
     VALUES
-    ('{}','{}','{}','{}','{}',0)
-    '''.format(C_M_Date,CarModel,SeatModel,Day,Night)
+    {}
+    '''.format(data)
+    #print(sqlcmd)
     cursor.execute(sqlcmd)
     values = cursor.fetchall()
     cursor.close()
