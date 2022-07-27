@@ -30,11 +30,13 @@
             size_hint_x: 0.9
 
             MDRaisedButton:
+                id:submit_advice
                 text: "提交建议"
                 on_release: root.send_mail()
 
 
             MDRaisedButton:
+                id:submit_database
                 text: "提交本机数据库（管理员debug时使用）"
                 on_release: root.send_database()
 
