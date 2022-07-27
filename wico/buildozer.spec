@@ -50,7 +50,7 @@ requirements = python3, \
                pymysql 
 
 # (str) Supported orientation (one of landscape, sensorLandscape, portrait or all)
-orientation = portrait
+orientation = all
 
 # (bool) Indicate if the application should be fullscreen or not
 fullscreen = 0
