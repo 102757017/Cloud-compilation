@@ -43,6 +43,7 @@ self：始终引用当前小部件
 
 class Others(MDFloatLayout, MDTabsBase):
     def send_mail(self, *args):
+        self.ids.submit_advice.disabled=True
         text=self.ids.advice.text
         #传入'plain'表示纯文本
         content = MIMEText(text, 'plain', 'utf-8')
@@ -74,8 +75,12 @@ class Others(MDFloatLayout, MDTabsBase):
         server.set_debuglevel(1)
         server.login(from_addr, password)
         server.sendmail(from_addr, [to_addr], msg.as_string())
+        
+        self.ids.submit_advice.disabled=False
+        
 
     def send_database(self, *args):
+        self.ids.submit_database.disabled=True
         text=self.ids.advice.text
         database=open('db.db','rb').read()
         #传入'plain'表示纯文本
@@ -113,6 +118,8 @@ class Others(MDFloatLayout, MDTabsBase):
         server.set_debuglevel(1)
         server.login(from_addr, password)
         server.sendmail(from_addr, [to_addr], msg.as_string())
+        
+        self.ids.submit_database.disabled=False
 
 
 
