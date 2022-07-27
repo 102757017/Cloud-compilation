@@ -235,15 +235,15 @@ def sync_all():
         database="pyytest" )
 
         sync_ngrecord(sqlite_conn,mariadb_conn)
-        print("NG品记录已同步完成")
+        #print("NG品记录已同步完成")
         sync_volume(sqlite_conn,mariadb_conn)
-        print("客户产量已同步完成")
+        #print("客户产量已同步完成")
         sync_partlist(sqlite_conn,mariadb_conn)
-        print("产品清单已同步完成")
+        #print("产品清单已同步完成")
         sync_seatlist(sqlite_conn,mariadb_conn)
-        print("座椅-部品信息已同步完成")
+        #print("座椅-部品信息已同步完成")
         sync_ngtype(sqlite_conn,mariadb_conn)
-        print("不良类型及维修方法已同步完成")
+        #print("不良类型及维修方法已同步完成")
         return True
     except Exception:
         print(traceback.format_exc())
