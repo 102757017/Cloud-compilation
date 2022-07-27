@@ -13,6 +13,7 @@ from kivy.logger import Logger
 from pathlib import Path
 from kivy.core.window import WindowBase
 WindowBase.softinput_mode='below_target'
+import threading
 
 #  所有基于模块的使用到__file__属性的代码，在源码运行时表示的是当前脚本的绝对路径，但是用pyinstaller打包后就是当前模块的模块名（即文件名xxx.py）
 #  因此需要用以下代码来获取exe的绝对路径
@@ -56,6 +57,10 @@ class ScreenManager(ScreenManager):
     def __init__(self, **kwargs):
         #一定要注意这里要加super，才能把现有的新初始化方法覆盖掉继承来的旧初始化方法
         super(ScreenManager, self).__init__(**kwargs)
+        
+        t1=threading.Thread(target=self.sync)
+        t1.start()
+        
         self.EnterNgIfo=EnterNgIfo()
         self.Manual_input=Manual_input()
         self.OutPutInfo=OutPutInfo()
@@ -74,11 +79,15 @@ class ScreenManager(ScreenManager):
         self.add_widget(self.scn)
         self.add_widget(self.CameraScreen)
         
+        t1.join()
+        toast("数据已同步完成") 
+        
+    def sync(self):
         f=sync_all()
         if f==True:
-            toast("数据已上传到服务器")
+            Logger.info("数据已上传到服务器")
         else:
-            toast("数据上传到服务器失败，稍后重新启动app将再次尝试上传")        
+            Logger.info("数据上传到服务器失败，稍后重新启动app将再次尝试上传")
 
 
 class DemoApp(MDApp):
