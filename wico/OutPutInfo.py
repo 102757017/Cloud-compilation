@@ -146,6 +146,7 @@ class OutPutInfo(MDFloatLayout, MDTabsBase):
 
 
     def upload_volume(self):
+        self.ids.submit.disabled=True
         Date=self.ids.date.text
         for i in range(len(self.CarModel_rows)):
             if self.SeatModel_rows[i].text !="" and (self.Day_rows[i].text !="0" or self.Night_rows[i].text !="0"):
@@ -163,6 +164,7 @@ class OutPutInfo(MDFloatLayout, MDTabsBase):
                     toast("数据上传到服务器失败，稍后重新启动app将再次尝试上传")
             else:
                 toast("{}车型的{}座椅数据未填写完整".format(self.CarModel_rows[i].text,self.SeatModel_rows[i].text))
+        self.ids.submit.disabled=True
 
 
 class DemoApp(MDApp):
