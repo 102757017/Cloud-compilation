@@ -253,10 +253,10 @@ class Manual_input(MDFloatLayout, MDTabsBase):
                                         ManufactureDate,
                                         Production_Line,
                                         0)
-                        toast("数据在本地保存完成")
+                        #toast("数据在本地保存完成")
                         f=sync_all()
                         if f==True:
-                            #toast("数据已上传到服务器")
+                            toast("数据已上传到服务器")
                         else:
                             toast("数据上传到服务器失败，稍后重新启动app将再次尝试上传")
 
@@ -283,7 +283,7 @@ class Manual_input(MDFloatLayout, MDTabsBase):
                                 ManufactureDate,
                                 Production_Line,
                                 0)
-                toast("数据在本地保存完成")
+                #toast("数据在本地保存完成")
                 f=sync_all()
                 if f==True:
                     toast("数据已上传到服务器")
