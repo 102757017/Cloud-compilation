@@ -99,6 +99,7 @@ class DemoApp(MDApp):
 
     def start_cam(self):
         self.root.current = 'camera'
+        self.root.CameraScreen.ids.zbarcam.start
         self.root.CameraScreen.ids.zbarcam.ids.xcamera.play=True
 
     def goback(self):       
