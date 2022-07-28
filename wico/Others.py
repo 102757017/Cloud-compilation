@@ -75,7 +75,7 @@ class Others(MDFloatLayout, MDTabsBase):
         server.set_debuglevel(1)
         server.login(from_addr, password)
         server.sendmail(from_addr, [to_addr], msg.as_string())
-        
+        self.ids.content.text=""
         self.ids.submit_advice.disabled=False
         
 
@@ -118,7 +118,7 @@ class Others(MDFloatLayout, MDTabsBase):
         server.set_debuglevel(1)
         server.login(from_addr, password)
         server.sendmail(from_addr, [to_addr], msg.as_string())
-        
+        self.ids.content.text=""
         self.ids.submit_database.disabled=False
 
 
