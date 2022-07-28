@@ -5,7 +5,7 @@ import datetime
 import os
 import sys
 import pprint
-import pymysql
+import mariadb
 import traceback
 from pathlib import Path
 from kivy.logger import Logger
@@ -227,7 +227,7 @@ def sync_all():
     sqlite_conn = sqlite3.connect(f"{os.environ['WICO_ROOT']}/db.db")
     
     try: 
-        mariadb_conn = pymysql.connect( 
+        mariadb_conn = mariadb.connect( 
         user="hewei", 
         password="wico2022", 
         host="sunnyho.f3322.net", 
