@@ -19,22 +19,19 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-        
-      - name: 安装mariadb模块
-        run: |
-          curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
-          sudo apt-get update
-          sudo apt-get install libmariadb3
-          sudo apt-get install mariadb-server
-          sudo apt-get install libmariadb-dev
-          pip3 install mariadb
+        uses: actions/checkout@v2 
           
       - name: Build with Buildozer
         uses: ArtemSBulgakov/buildozer-action@v1
         id: buildozer
         with:
-          command: buildozer android debug
+          command: |
+            curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
+            sudo apt-get update
+            sudo apt-get install libmariadb3
+            sudo apt-get install mariadb-server
+            sudo apt-get install libmariadb-dev
+            buildozer android debug
           workdir: wico
           buildozer_version: stable
          
