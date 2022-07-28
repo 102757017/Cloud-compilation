@@ -1,27 +1,41 @@
 <CameraScreen>:
     name: 'camera'
-    #:import ZBarCam kivy_garden.zbarcam.zbarcam
-    #:import ZBarSymbol pyzbar.pyzbar.ZBarSymbol
-    ZBarCam:
-        id: zbarcam
-        # optional, by default checks all types
-        #code_types: ZBarSymbol.CODE128,ZBarSymbol.QRCODE
-        #这里的分辨率必须填写手机摄像头支持的分辨率，随便填会导致在电脑上可以运行，但是手机app闪退
-        resolution: 1280,960
+
+    BoxLayout:
+        orientation: "vertical"
+
+        MDLabel:
+            #size: self.texture_size[0], 50
+            size_hint_y: 0.1
+            font_name:"DroidSansFallback.ttf"
+            text: "条形码必须水平方向或垂直方向扫描，二维码任意方向均可扫描"
+
+        MDBoxLayout:
+            id:container
+            orientation: "horizontal"
+            pos_hint: {"center_x": .5}
+
+
+            #:import ZBarCam kivy_garden.zbarcam.zbarcam
+            #:import ZBarSymbol pyzbar.pyzbar.ZBarSymbol
+            ZBarCam:
+                id: zbarcam
+                # optional, by default checks all types
+                #code_types: ZBarSymbol.CODE128,ZBarSymbol.QRCODE
+                #这里的分辨率必须填写手机摄像头支持的分辨率，随便填会导致在电脑上可以运行，但是手机app闪退
+                resolution: 1280,960
+                size_hint_x: 1.0
     
-    MDLabel:
-        id:barcode
-        size: self.texture_size[0], 50
-        text: ', '.join([str(symbol.data) for symbol in zbarcam.symbols])
-        on_text: app.goback2(self.text)
+        MDLabel:
+            id:barcode
+            size_hint_y: 0.1
+            #size: self.texture_size[0], 50
+            text: ', '.join([str(symbol.data) for symbol in zbarcam.symbols])
+            on_text: app.goback2(self.text)
 
-    MDLabel:
-        size: self.texture_size[0], 50
-        font_name:"DroidSansFallback.ttf"
-        text: "条形码必须水平方向或垂直方向扫描，二维码任意方向均可扫描"
 
-            
-    MDRectangleFlatButton:
-        text: 'Back'
-        pos_hint: {'center_x':0.5,'center_y':0.1}
-        on_press: app.goback()
+        MDRectangleFlatButton:
+            text: 'Back'
+            pos_hint: {'center_x':0.5,'center_y':0.3}
+            size_hint_y: 0.1
+            on_press: app.goback()
