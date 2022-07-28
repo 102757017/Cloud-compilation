@@ -37,6 +37,7 @@ class Nginfo_tables(MDFloatLayout, MDTabsBase):
         self.data_tables.bind(on_check_press=self.on_check_press)
         self.add_widget(self.data_tables)         
 
+
     #更新表格中的数据
     def update(self):
         self.clear_widgets()
