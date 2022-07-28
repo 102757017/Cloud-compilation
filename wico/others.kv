@@ -1,3 +1,5 @@
+#:import Thread threading.Thread
+
 <Others>
     name:"others"
     title: "其它"
@@ -9,6 +11,7 @@
         size_hint_y: 0.5
 
         MDLabel:
+            id:content
             text: "若发现APP有bug，或有改善建议，请在此反馈"
             size_hint_x: 0.9
             size_hint_y: None
@@ -32,20 +35,19 @@
             MDRaisedButton:
                 id:submit_advice
                 text: "提交建议"
-                on_release: root.send_mail()
+                on_release: Thread(target=root.send_mail).start()
 
 
             MDRaisedButton:
                 id:submit_database
                 text: "提交本机数据库（管理员debug时使用）"
-                on_release: root.send_database()
+                on_release: Thread(target=root.send_database).start()
 
 
 
     BoxLayout:
         size_hint_y: 0.2 #占用20%的水平空间
         orientation: "horizontal" 
-
         MDLabel:
             text: "作者：何威      EMAIL:hewei@imasenwh.com"
             pos_hint: {'right': 1}
