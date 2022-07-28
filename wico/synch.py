@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 import sqlite3
-import time
+import datetime
 import os
 import sys
 import pprint
@@ -233,17 +233,23 @@ def sync_all():
         host="sunnyho.f3322.net", 
         port=3306, 
         database="pyytest" )
-
+        t1=datetime.datetime.now()
         sync_ngrecord(sqlite_conn,mariadb_conn)
         #print("NG品记录已同步完成")
+        t2=datetime.datetime.now()
         sync_volume(sqlite_conn,mariadb_conn)
         #print("客户产量已同步完成")
+        t3=datetime.datetime.now()
         sync_partlist(sqlite_conn,mariadb_conn)
         #print("产品清单已同步完成")
+        t4=datetime.datetime.now()
         sync_seatlist(sqlite_conn,mariadb_conn)
         #print("座椅-部品信息已同步完成")
+        t5=datetime.datetime.now()
         sync_ngtype(sqlite_conn,mariadb_conn)
         #print("不良类型及维修方法已同步完成")
+        t6=datetime.datetime.now()
+        Logger.info("ngrecord:{},volume:{},partlist:{},seatlist:{},ngtype:{}".format(t2-t1,t3-t2,t4-t3,t5-t4,t6-t5))
         return True
     except Exception:
         print(traceback.format_exc())
