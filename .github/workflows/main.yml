@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v2 
           
       - name: Build with Buildozer
-        uses: 102757017/buildozer-action@v2
+        uses: 102757017/buildozer-action@v3
         id: buildozer
         with:
           command: buildozer android debug
