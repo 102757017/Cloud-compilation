@@ -9,7 +9,7 @@ import datetime
 from pathlib import Path
 from kivy.logger import Logger
 import traceback
-import pymysql
+import mariadb
 
 
 
@@ -28,11 +28,11 @@ KV_DIR = f"{os.environ['WICO_ROOT']}"
 conn = sqlite3.connect(f"{os.environ['WICO_ROOT']}/db.db")
 
 '''
-conn_server = pymysql.connect(host='localhost',
+conn_server = mariadb.connect(host='localhost',
                              user='user',
                              password='passwd',
                              database='db',
-                             cursorclass=pymysql.cursors.DictCursor)
+                             cursorclass=mariadb.cursors.DictCursor)
 '''
 
 def get_CarModel():
@@ -388,7 +388,7 @@ def query_volume_local(C_M_Date):
 
 def query_volume_server(C_M_Date):
     try: 
-        mariadb_conn = pymysql.connect( 
+        mariadb_conn = mariadb.connect( 
         user="hewei", 
         password="wico2022", 
         host="sunnyho.f3322.net", 
@@ -428,7 +428,7 @@ def query_nginfo():
     t=t+" 08:00:00"
     
     try: 
-        mariadb_conn = pymysql.connect( 
+        mariadb_conn = mariadb.connect( 
         user="hewei", 
         password="wico2022", 
         host="sunnyho.f3322.net", 
