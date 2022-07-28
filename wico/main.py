@@ -67,6 +67,9 @@ class ScreenManager(ScreenManager):
         self.Nginfo_tables=Nginfo_tables()
         #电脑必须连接摄像头，否则会报错
         self.CameraScreen=CameraScreen()
+        self.CameraScreen.ids.zbarcam.stop
+        self.CameraScreen.ids.zbarcam.ids.xcamera.play=False
+        
         self.Others=Others()
         
         self.scn=MainScreen()
