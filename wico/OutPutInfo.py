@@ -73,9 +73,9 @@ class OutPutInfo(MDFloatLayout, MDTabsBase):
         for x in values:
             HB = BoxLayout(orientation='horizontal')
             t1 = Button(text=x[1],font_name="DroidSansFallback.ttf",size_hint_x=0.1)
-            t2 = Button(text=x[2],font_name="DroidSansFallback.ttf",size_hint_x=0.7)
-            t3 = TextInput(text=str(x[3]),size_hint_x=0.1,halign="center",multiline=False,input_filter="int")
-            t4 = TextInput(text=str(x[4]),size_hint_x=0.1,halign="center",multiline=False,input_filter="int")
+            t2 = Button(text=x[2],font_name="DroidSansFallback.ttf",size_hint_x=0.5)
+            t3 = TextInput(text=str(x[3]),size_hint_x=0.2,halign="center",multiline=False,input_filter="int")
+            t4 = TextInput(text=str(x[4]),size_hint_x=0.2,halign="center",multiline=False,input_filter="int")
 
             t1.bind(on_press=partial(self.all_model2, t1))
             t2.bind(on_press=partial(self.show_SeatModel2, t2))
@@ -125,9 +125,9 @@ class OutPutInfo(MDFloatLayout, MDTabsBase):
     def add_quantity(self):
         HB = BoxLayout(orientation='horizontal')
         t1 = Button(text='',font_name="DroidSansFallback.ttf",size_hint_x=0.1)
-        t2 = Button(text='',font_name="DroidSansFallback.ttf",size_hint_x=0.7)
-        t3 = TextInput(text="0",size_hint_x=0.1,halign="center",multiline=False,input_filter="int")
-        t4 = TextInput(text="0",size_hint_x=0.1,halign="center",multiline=False,input_filter="int")
+        t2 = Button(text='',font_name="DroidSansFallback.ttf",size_hint_x=0.5)
+        t3 = TextInput(text="0",size_hint_x=0.2,halign="center",multiline=False,input_filter="int")
+        t4 = TextInput(text="0",size_hint_x=0.2,halign="center",multiline=False,input_filter="int")
 
         
         t1.bind(on_press=partial(self.all_model2, t1))
@@ -167,16 +167,18 @@ class OutPutInfo(MDFloatLayout, MDTabsBase):
         data=str(data)[1:-1]
         t1 = threading.Thread(target=self.child_Thread,args=(data,))
         t1.start()
-        toast("数据同步...")
+        #toast("数据同步...")
         
 
     def child_Thread(self,data):
+        self.ids.submit.disabled=True
         submit_volume(data)
         f=sync_all()
         if f==False:
             self.flag=False
         else:
             self.flag=True
+        self.ids.submit.disabled=False
 
 
 class DemoApp(MDApp):
