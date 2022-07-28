@@ -167,7 +167,7 @@ class OutPutInfo(MDFloatLayout, MDTabsBase):
         data=str(data)[1:-1]
         t1 = threading.Thread(target=self.child_Thread,args=(data,))
         t1.start()
-        #toast("数据同步...")
+
         
 
     def child_Thread(self,data):
@@ -175,9 +175,9 @@ class OutPutInfo(MDFloatLayout, MDTabsBase):
         submit_volume(data)
         f=sync_all()
         if f==False:
-            self.flag=False
+            self.ids.submit.text="网络不好,稍后再试"
         else:
-            self.flag=True
+            self.ids.submit.text="提交"
         self.ids.submit.disabled=False
 
 
