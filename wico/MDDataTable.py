@@ -46,6 +46,11 @@ class Nginfo_tables(MDFloatLayout, MDTabsBase):
     #更新表格中的数据
     def update(self):
         info=query_nginfo()
+        for i,j in enumerate(info):
+            info[i]=list(j)
+            for x,y in enumerate(j):
+                y="[size=9]"+str(y)
+                info[i][x]=y
         self.data_tables.update_row_data(instance_data_table=self.data_tables,data=info)
  
     def on_row_press(self, instance_table, instance_row):
