@@ -15,21 +15,26 @@ class Nginfo_tables(MDFloatLayout, MDTabsBase):
         super().__init__(**kwargs)
         self.title="已录入NG信息"
         self.name="inputed_ng_info"
-        
+
         info=query_nginfo()
+        for i,j in enumerate(info):
+            info[i]=list(j)
+            for x,y in enumerate(j):
+                y="[size=9]"+str(y)
+                info[i][x]=y
         self.data_tables = MDDataTable(
             use_pagination=False,
             check=True,
             column_data=[
-                ("车型", dp(20)),
-                ("座椅型号", dp(55)),
-                ("WICO番号", dp(25)),
-                ("TS番号", dp(45)),
-                ("零件名称", dp(50)),
-                ("不良信息", dp(50)),
-                ("维修方法", dp(50)),
-                ("批次号", dp(30)),
-                ("生产日期", dp(20)),
+                ("[size=9]车型", dp(18)),
+                ("[size=9]座椅型号", dp(20)),
+                ("[size=9]WICO番号", dp(21)),
+                ("[size=9]TS番号", dp(27)),
+                ("[size=9]零件名称", dp(30)),
+                ("[size=9]不良信息", dp(25)),
+                ("[size=9]维修方法", dp(25)),
+                ("[size=9]批次号", dp(18)),
+                ("[size=9]生产日期", dp(18)),
             ],
             row_data=info
             )
