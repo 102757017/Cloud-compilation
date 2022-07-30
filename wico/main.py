@@ -15,6 +15,8 @@ from kivy.core.window import WindowBase
 WindowBase.softinput_mode='below_target'
 import threading
 import certifi
+from kivy.config import Config
+
 
 #不设置此项,图片将无法显示
 os.environ['SSL_CERT_FILE'] = certifi.where()
@@ -40,7 +42,8 @@ if platform == "android":
     from android.storage import primary_external_storage_path
     appwd=primary_external_storage_path()+'/WICO'
     Logger.info("外部存储路径:"+appwd)
-
+    #设置log的存储路径
+    Config.set('kivy', 'log_dir', appwd)
 
 
 '''
