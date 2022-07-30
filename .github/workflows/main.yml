@@ -27,7 +27,7 @@ jobs:
         with:
           command: buildozer android debug
           workdir: wico
-          buildozer_version: stable
+          buildozer_version: 1.4.0
          
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
