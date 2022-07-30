@@ -44,6 +44,8 @@ requirements = python3, \
                sqlite3, \
                sdl2_ttf==2.0.15, \
                android, \
+               certifi, \
+               openssl, \               
                #opencv-python, \
                xcamera, \
                pyzbar, \
