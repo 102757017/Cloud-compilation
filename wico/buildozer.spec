@@ -35,8 +35,15 @@ source.dir = .
 # (str) Application versioning (method 2)
 version = 0.0.1
 
+#指定需要编译的库（不是纯python的，包含C库），在其中放入补丁文件
+p4a.local_recipes = ./p4a-recipes
+
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
+#python的小版本对app有影响，如果用错了版本，虽然apk会生成成功，但是会闪崩。
+#指定版本时需要明确完整版本号，例如python3==3.8.10,python3=3.8，python3>=3.8.10都是不行的
+#这里只能放入纯python的模块，如果有依赖C的模块，要看recipe清单中有无支持(https://github.com/kivy/python-for-android/tree/develop/pythonforandroid/recipes)，
+#将对应的项目拷贝到./p4a-recipes文件夹后再在requirements中添加依赖
 requirements = python3, \
                kivy==2.1.0, \
                git+https://github.com/102757017/KivyMD.git@master, \
