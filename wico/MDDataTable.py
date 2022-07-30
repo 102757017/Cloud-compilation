@@ -20,21 +20,21 @@ class Nginfo_tables(MDFloatLayout, MDTabsBase):
         for i,j in enumerate(info):
             info[i]=list(j)
             for x,y in enumerate(j):
-                y="[size=9]"+str(y)
+                y="[size=15]"+str(y)
                 info[i][x]=y
         self.data_tables = MDDataTable(
             use_pagination=False,
             check=True,
             column_data=[
-                ("[size=9]车型", dp(18)),
-                ("[size=9]座椅型号", dp(20)),
-                ("[size=9]WICO番号", dp(21)),
-                ("[size=9]TS番号", dp(27)),
-                ("[size=9]零件名称", dp(30)),
-                ("[size=9]不良信息", dp(25)),
-                ("[size=9]维修方法", dp(25)),
-                ("[size=9]批次号", dp(18)),
-                ("[size=9]生产日期", dp(18)),
+                ("[size=15]车型", dp(18)),
+                ("[size=15]座椅型号", dp(20)),
+                ("[size=15]WICO番号", dp(21)),
+                ("[size=15]TS番号", dp(27)),
+                ("[size=15]零件名称", dp(30)),
+                ("[size=15]不良信息", dp(25)),
+                ("[size=15]维修方法", dp(25)),
+                ("[size=15]批次号", dp(18)),
+                ("[size=15]生产日期", dp(18)),
             ],
             row_data=info
             )
@@ -49,7 +49,7 @@ class Nginfo_tables(MDFloatLayout, MDTabsBase):
         for i,j in enumerate(info):
             info[i]=list(j)
             for x,y in enumerate(j):
-                y="[size=9]"+str(y)
+                y="[size=15]"+str(y)
                 info[i][x]=y
         self.data_tables.update_row_data(instance_data_table=self.data_tables,data=info)
  
