@@ -47,7 +47,7 @@ requirements = python3, \
                #opencv-python, \
                xcamera, \
                pyzbar, \
-               mariadb==1.0.7
+               mysql_connector
 
 # (str) Supported orientation (one of landscape, sensorLandscape, portrait or all)
 orientation = all
