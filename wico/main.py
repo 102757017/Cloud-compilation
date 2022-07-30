@@ -43,7 +43,7 @@ if platform == "android":
     appwd=primary_external_storage_path()+'/WICO'
     Logger.info("外部存储路径:"+appwd)
     #设置log的存储路径
-    Config.set('kivy', 'log_dir', appwd)
+    #Config.set('kivy', 'log_dir', appwd)
 
 
 '''
