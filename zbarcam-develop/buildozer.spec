@@ -27,7 +27,7 @@ android.numeric_version = 1
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
 requirements = 
-    python3==3.8.5,
+    python3,
     #kivy[base] @ https://github.com/102757017/kivy/archive/master.zip,
     kivy,
     git+https://github.com/102757017/KivyMD.git@master,
