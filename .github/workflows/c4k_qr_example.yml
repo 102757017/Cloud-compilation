@@ -27,7 +27,7 @@ jobs:
         with:
           command: buildozer android debug
           workdir: c4k_qr_example
-          buildozer_version: 1.4.0
+          buildozer_version: stable
          
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
