@@ -61,14 +61,6 @@ fullscreen = 0
 # (list) Permissions
 android.permissions = CAMERA,INTERNET,READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE
 
-# (int) Target Android API, should be as high as possible.
-android.api = 28
-
-# (int) Minimum API your APK will support.
-android.minapi = 21
-
-# (str) Android NDK version to use
-android.ndk = 23b
 
 # (bool) If True, then skip trying to update the Android sdk
 # This can be useful to avoid excess Internet downloads or save time
