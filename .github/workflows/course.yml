@@ -1,0 +1,71 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Actions 教程
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the main branch
+on:
+  #手动触发工作流程运行
+  workflow_dispatch:
+
+
+#全局环境变量  
+env:
+  e3:"3333"
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  Course:
+    name: Build for Android
+    # ubuntu-latest、macos-latest、windows-latest、macos-10.15
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      #将仓库中最新的代码拉到 Workflow 的工作区
+      - name: Checkout
+        uses: actions/checkout@v2    
+    
+      - name: 安装tree
+        run: sudo apt-get install tree
+
+      - name: 默认工作目录
+        run: tree
+
+      - name: 指定工作目录
+        run: tree
+        working-directory: ./wico
+
+      - name: 设置局部环境变量
+        run: echo "$e1  $e2   $PATH"
+        env:
+          e1:"11111111"
+          PATH:"H:\programming\python\Cloud-compilation"
+
+      - name: export设置局部环境变量
+        run: |
+          export PATH=$PATH:/home/xyz/Tesseract/bintesseract
+          echo "$PATH"
+
+      #将编译文件缓存，避免下次重新编译
+      - name: 设置缓存temp目录
+        id: WindowsCacheQt
+        uses: actions/cache@v2
+        with:
+          path: ./temp
+          key: dgdfgergse23r34rj49393nfgg54fgdsj6
+
+
+      - name: 在缓存目录内工作
+        run: |
+          mkdir temp
+          echo $(date "+%Y-%m-%d %H:%M:%S") >> ./temp/test.txt
+          cat ./temp/test.txt
+
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: package
+          path: ./temp
