@@ -11,7 +11,7 @@ on:
 
 #全局环境变量  
 env:
-  e3: 3333
+  e1: 3333
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -40,8 +40,8 @@ jobs:
       - name: 设置局部环境变量
         run: echo "$e1  $e2   $PATH"
         env:
-          e1: 11111111
-          PATH: H:\programming\python\Cloud-compilation
+          e2: 11111111
+          PATH: $PATH:"H:\programming\python\Cloud-compilation"
 
       - name: export设置局部环境变量
         run: |
