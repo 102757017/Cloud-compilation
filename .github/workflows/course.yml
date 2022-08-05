@@ -53,18 +53,19 @@ jobs:
         id: Cache
         uses: actions/cache@v2
         with:
-          path: ./hello world
+          #带有空格的目录要加入转义字符
+          path: ./hello\ world
           key: dgdfgergse23r34rj49393nfgg54fgdsj6
 
 
       - name: 在缓存目录内工作
         run: |
-          echo $(date "+%Y-%m-%d %H:%M:%S") >> ./hello world/cache.txt
-          cat ./hello world/cache.txt
+          echo $(date "+%Y-%m-%d %H:%M:%S") >> ./hello\ world/cache.txt
+          cat ./hello\ world/cache.txt
 
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: package
-          path: ./hello world
+          path: ./hello\ world
