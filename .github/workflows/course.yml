@@ -49,23 +49,22 @@ jobs:
           echo "$PATH"
 
       #将编译文件缓存，避免下次重新编译
-      - name: 设置缓存temp目录
-        id: WindowsCacheQt
+      - name: 设置缓存hello world目录
+        id: Cache
         uses: actions/cache@v2
         with:
-          path: ./temp
+          path: ./hello world
           key: dgdfgergse23r34rj49393nfgg54fgdsj6
 
 
       - name: 在缓存目录内工作
         run: |
-          mkdir temp
-          echo $(date "+%Y-%m-%d %H:%M:%S") >> ./temp/test.txt
-          cat ./temp/test.txt
+          echo $(date "+%Y-%m-%d %H:%M:%S") >> ./hello world/cache.txt
+          cat ./hello world/test.txt
 
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: package
-          path: ./temp
+          path: ./hello world
