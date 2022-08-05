@@ -57,9 +57,9 @@ jobs:
           #导入的环境变量只在此name下有效
           export PATH=$PATH:/Users/runner/Library/Python/3.9/bin
           export PATH=$PATH:~/.local/bin/
-          ls -a
           toolchain recipes
           toolchain build libzbar openssl
           #toolchain build python3 kivy
           #toolchain pip3 install pillow pyzbar camera4kivy
+          ls -a
 
