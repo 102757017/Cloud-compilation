@@ -48,7 +48,7 @@ jobs:
           export PATH=$PATH:/home/xyz/Tesseract/bintesseract
           echo "$PATH"
 
-      #将编译文件缓存，避免下次重新编译
+      #将编译文件缓存，避免下次重新编译，注意缓存是在所有任务完成后才上传的，如果任务中途失败了，就没有缓存
       - name: 设置缓存hello world目录
         id: Cache
         uses: actions/cache@v2
